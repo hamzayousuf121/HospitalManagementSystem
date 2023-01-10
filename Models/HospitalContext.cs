@@ -18,24 +18,24 @@ namespace WebApplication2.Models
             }
         }
 
-        public DbSet<User> User { get; set; }
-        public DbSet<Role> Role { get; set; }
-        public DbSet<AddressDetail> AddressDetail { get; set; }
-        public DbSet<ImageSlider> ImageSlider { get; set; }
-        public DbSet<Appointment> Appointment { get; set; }
-        public DbSet<AppointmentStatus> AppointmentStatus { get; set; }
-        public DbSet<City> City { get; set; }
-        public DbSet<Country> Country { get; set; }
-        public DbSet<Branch> Branch { get; set; }
-        public DbSet<Doctor> Doctor { get; set; }
-        public DbSet<DoctorStatus> DoctorStatus { get; set; }
-        public DbSet<DoctorCategory> DoctorCategory { get; set; }
-        public DbSet<Patient> Patient { get; set; }
-        public DbSet<BloodGroup> BloodGroup { get; set; }
-        public DbSet<WeekDays> WeekDays { get; set; }
-        public DbSet<Contact> Contact { get; set; }
-        public DbSet<Service> Service { get; set; }
-        public DbSet<Schedule> Schedule { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Role> Roles { get; set; }
+        public DbSet<AddressDetail> AddressDetails { get; set; }
+        public DbSet<ImageSlider> ImageSliders { get; set; }
+        public DbSet<Appointment> Appointments { get; set; }
+        public DbSet<AppointmentStatus> AppointmentStatuses { get; set; }
+        public DbSet<City> Cities { get; set; }
+        public DbSet<Country> Countries { get; set; }
+        public DbSet<Branch> Branches { get; set; }
+        public DbSet<Doctor> Doctors { get; set; }
+        public DbSet<DoctorStatus> DoctorStatuses { get; set; }
+        public DbSet<DoctorCategory> DoctorCategories { get; set; }
+        public DbSet<Patient> Patients { get; set; }
+        public DbSet<BloodGroup> BloodGroups { get; set; }
+        public DbSet<WeekDay> WeekDays { get; set; }
+        public DbSet<Contact> Contacts { get; set; }
+        public DbSet<Service> Services { get; set; }
+        public DbSet<Schedule> Schedules { get; set; }
 
     }
 }

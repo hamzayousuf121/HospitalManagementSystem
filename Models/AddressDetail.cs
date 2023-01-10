@@ -10,5 +10,6 @@
         public int CityId { get; set; }
         public virtual User User { get; set; }
         public int UserId { get; set; }
+        public int IsDeleted { get; set; } = 0;
     }
 }
