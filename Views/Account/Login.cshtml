@@ -1,21 +1,26 @@
-﻿<div class="container login-container">
-    <div>
-        <img src="~/assets/img/logo.png" loading="lazy" class="img-fluid" />
+﻿<div class="container-fluid login-container">
+    <div class="row justify-content-center align-items-center pt-2">
+        <div class="d-flex justify-content-center align-items-center">
+            <img src="~/assets/img/logo.png" loading="lazy" class="img-fluid" />
+        </div>
+        <div class="pt-0 p-3">
+            <div class="justify-content-center d-flex pb-2">
+                <h2 class="color-default fw-bold">Login</h2>
+            </div>
+            <form asp-action="Login" asp-controller="Account" method="post">
+                    <div class="form-outline mb-2">
+                        <input type="email" class="form-control" />
+                        <label class="form-label">Email</label>
+                    </div>
+                    <div class="form-outline mb-2">
+                        <input type="password"class="form-control" />
+                        <label class="form-label">Password</label>
+                    </div>
+
+                    <div class="my-2">
+                        <button type="submit" class="btn btn-danger btn-block">Login</button>
+                    </div>
+            </form>
+        </div>
     </div>
-    <form>
-        <!-- Email input -->
-        <div class="form-outline mb-4">
-            <input type="email" id="form1Example1" class="form-control" />
-            <label class="form-label" for="form1Example1">Email address</label>
-        </div>
-
-        <!-- Password input -->
-        <div class="form-outline mb-4">
-            <input type="password" id="form1Example2" class="form-control" />
-            <label class="form-label" for="form1Example2">Password</label>
-        </div>
-
-        <!-- Submit button -->
-        <button type="submit" class="btn btn-danger btn-block">Login</button>
-    </form>
 </div>

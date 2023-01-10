@@ -1,1 +1,36 @@
-﻿<h1>Register</h1>
+﻿<div class="container-fluid login-container">
+    <div class="row justify-content-center align-items-center pt-2">
+        <div class="d-flex justify-content-center align-items-center">
+            <img src="~/assets/img/logo.png" loading="lazy" class="img-fluid" />
+        </div>
+        <div class="pt-0 p-3">
+            <div class="justify-content-center d-flex pb-2">
+                <h2 class="color-default fw-bold">Register</h2>
+            </div>
+            <form asp-action="Register" asp-controller="Account" method="post">
+
+                <div class="form-outline mb-2">
+                    <input type="text" class="form-control" />
+                    <label class="form-label">Name</label>
+                </div>
+                <div class="form-outline mb-2">
+                    <input type="email" class="form-control" />
+                    <label class="form-label">Email</label>
+                </div>
+                <div class="form-outline mb-2">
+                    <input type="password" class="form-control" />
+                    <label class="form-label">Password</label>
+                </div>
+
+                <div class="form-outline mb-2">
+                    <input type="tel" class="form-control" />
+                    <label class="form-label">Phone Number</label>
+                </div>
+
+                <div class="my-2">
+                    <button type="submit" class="btn btn-danger btn-block">Register</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
