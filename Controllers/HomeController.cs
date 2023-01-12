@@ -17,8 +17,11 @@ namespace WebApplication2.Controllers
         {
             return View();
         }
-
-        public IActionResult Privacy()
+        public IActionResult Contact()
+        {
+            return View();
+        }
+        public IActionResult Service()
         {
             return View();
         }

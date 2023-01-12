@@ -1,4 +1,7 @@
-﻿<div class="container-fluid login-container">
+﻿@using WebApplication2.Models;
+@model User;
+
+<div class="container-fluid login-container">
     <div class="row justify-content-center align-items-center pt-2">
         <div class="d-flex justify-content-center align-items-center">
             <img src="~/assets/img/logo.png" loading="lazy" class="img-fluid" />
@@ -8,18 +11,21 @@
                 <h2 class="color-default fw-bold">Login</h2>
             </div>
             <form asp-action="Login" asp-controller="Account" method="post">
-                    <div class="form-outline mb-2">
-                        <input type="email" class="form-control" />
-                        <label class="form-label">Email</label>
-                    </div>
-                    <div class="form-outline mb-2">
-                        <input type="password"class="form-control" />
-                        <label class="form-label">Password</label>
-                    </div>
+                <div class="form-outline mb-2">
+                    <input type="email" class="form-control" />
+                    <label class="form-label" asp-for="Email">Email</label>
+                </div>
+                <span asp-validation-for="Email" class="text-danger"></span>
 
-                    <div class="my-2">
-                        <button type="submit" class="btn btn-danger btn-block">Login</button>
-                    </div>
+                <div class="form-outline mb-2">
+                    <input type="password" class="form-control" />
+                    <label class="form-label" asp-for="Password">Password</label>
+                </div>
+                <span asp-validation-for="Password" class="text-danger"></span>
+
+                <div class="my-2">
+                    <button type="submit" class="btn btn-danger btn-block">Login</button>
+                </div>
             </form>
         </div>
     </div>
