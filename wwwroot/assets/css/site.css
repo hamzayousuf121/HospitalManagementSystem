@@ -55,3 +55,6 @@ body {
 .overviewwrapper {
     height:40%;
 }
+p{
+    margin-bottom:5px !important;
+}

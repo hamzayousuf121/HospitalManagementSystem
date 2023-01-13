@@ -24,7 +24,6 @@ namespace WebApplication2.Models
         public DbSet<Appointment> Appointments { get; set; }
         public DbSet<AppointmentStatus> AppointmentStatuses { get; set; }
         public DbSet<City> Cities { get; set; }
-        public DbSet<Country> Countries { get; set; }
         public DbSet<Branch> Branches { get; set; }
         public DbSet<Doctor> Doctors { get; set; }
         public DbSet<DoctorStatus> DoctorStatuses { get; set; }

@@ -14,8 +14,6 @@ namespace WebApplication2.Models
         public double PatientPhoneNo { get; set; }
         public virtual Branch Branch { get; set; }
         public int BranchId { get; set; }
-        public virtual Country Country { get; set; }
-        public int CountryId { get; set; }
         public virtual DoctorCategory DoctorCategory { get; set; }
         public int DoctorCategoryId { get; set; }
         public virtual Doctor Doctor { get; set; }
