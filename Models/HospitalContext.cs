@@ -20,7 +20,6 @@ namespace WebApplication2.Models
 
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
-        public DbSet<AddressDetail> AddressDetails { get; set; }
         public DbSet<ImageSlider> ImageSliders { get; set; }
         public DbSet<Appointment> Appointments { get; set; }
         public DbSet<AppointmentStatus> AppointmentStatuses { get; set; }

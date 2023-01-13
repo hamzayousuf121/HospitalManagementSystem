@@ -12,8 +12,8 @@
         public int UserId { get; set; }
         public virtual BloodGroup BloodGroup { get; set; }
         public int BloodGroupId { get; set; }
-        public virtual AddressDetail AddressDetail { get; set; }
-        public int AddressDetailId { get; set; }
+        public string Address { get; set; }
+
         public virtual Branch Branch { get; set; }
         public int BranchId { get; set; }
         public virtual Country Country { get; set; }

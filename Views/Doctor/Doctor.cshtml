@@ -1,0 +1,65 @@
+﻿<div>
+    <img src="/assets/img/doctor-banner.jpg" class="img-responisve img-fluid w-100" />
+    <h1 class="text-danger mt-3 text-center mt-3">Doctors </h1>
+
+    <div class="border border-bottom-3">
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-3 col-md-6 col-12 my-4">
+            <!-- Card -->
+            <div class="card">
+                <div class="d-flex justify-content-around bg-light border-bottom pt-3"  >
+                    <div>
+                        <h4 class="text-danger">Dr Hamza Yousuf</h4>
+                        <p>Consultant</p>
+                    </div>
+                    <div>
+                        <i class="fas fa-user-doctor-lg fa-user-doctor text-danger"></i>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <button class="btn btn-default border">Profile</button>
+                    <button class="btn btn-default border"
+                            data-mdb-toggle="modal"
+                            data-mdb-target="#ScheduleModal">
+                        Schedule
+                    </button>
+                    <button class="btn btn-default border"> Request an Appointment</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal modal-lg fade" id="ScheduleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-danger">
+                <h5 class="modal-title text-white" id="exampleModalLabel">Doctor Name</h5>
+                <button type="button" class="btn-close bg-white" data-mdb-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <table class="table table-hover">
+                    <tbody>
+                        <tr>
+                            <th>Location</th>
+                            <th>Day</th>
+                            <th>From</th>
+                            <th>To</th>
+                        </tr>
+                        <tr>
+                            <td>Tele-Allergy Clinic CMS</td>
+                            <td>Wednesday</td>
+                            <td>10:10</td>
+                            <td>12:30</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

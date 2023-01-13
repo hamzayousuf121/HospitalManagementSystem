@@ -9,6 +9,7 @@
         public string Education { get; set; }
         public string Degree { get; set; }
         public string About { get; set; }
+        public string Address { get; set; }
         public int Fees { get; set; }
         public string Designation { get; set; }
 
@@ -17,8 +18,6 @@
 
         public virtual DoctorStatus DoctorStatus { get; set; }
         public int DoctorStatusId { get; set; }
-        public virtual AddressDetail AddressDetail { get; set; }
-        public int AddressDetailId { get; set; }
         public virtual Branch Branch { get; set; }
         public int BranchId { get; set; }
         public virtual Country Country { get; set; }
