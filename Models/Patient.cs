@@ -13,8 +13,8 @@
         public int BloodGroupId { get; set; }
         public string Address { get; set; }
 
-        public virtual Branch Branch { get; set; }
-        public int BranchId { get; set; }
+        public virtual City City { get; set; }
+        public int CityId { get; set; }
         public DateTime CreatedAt { get; set; }
         public int IsDeleted { get; set; } = 0;
     }

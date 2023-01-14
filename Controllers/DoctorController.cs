@@ -12,6 +12,15 @@ namespace WebApplication2.Controllers
         {
             return View();
         }
+
+        public IActionResult Schedule()
+        {
+            return View();
+        }
+        public IActionResult Profile()
+        {
+            return View();
+        }
         public IActionResult Appointment()
         {
             return View();
