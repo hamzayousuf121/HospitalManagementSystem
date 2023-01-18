@@ -100,7 +100,7 @@
                                     <a class="dropdown-item text-dark" asp-controller="Doctor" asp-action="Schedule">Doctor Schedule</a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item text-dark" href="#">Logout</a>
+                                    <a class="dropdown-item text-dark" asp-controller="Account" asp-action="Logout">Logout</a>
                                 </li>
                             </ul>
                         </div>
@@ -120,15 +120,19 @@
 
     <footer class="border-top footer text-muted">
         <div class="container text-center">
-            All Rights Reserved &copy; Design & Developed by <a class="text-dark" href="https://sites.google.com/view/hamzaeportfolio">Hamza Yousuf</a>
+            All Rights Reserved &copy; Design & Developed by <a class="text-dark" href="https://sites.google.com/view/hamzaeportfolio">
+                Hamza Yousuf</a>
         </div>
     </footer>
     <script src="~/assets/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/assets/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/assets/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
-    @*    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    *@
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+@*    <script src="~/assets/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+*@
     <script src="~/assets/js/mdb.min.js"></script>
+    
     <script src="~/assets/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>

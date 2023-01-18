@@ -1,4 +1,6 @@
-﻿@{
+﻿@using WebApplication2.Models.ViewModels;
+@model HomeViewModel;
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -48,33 +50,15 @@
 
 <div class="container mt-3">
     <div class="row">
-        <div class="col-12 col-sm-12 col-md-6 col-lg-12 col-xl-6">
+        <div class="offset-lg-2 col-12 col-sm-12 col-md-6 col-lg-8 col-xl-8">
             <h4 class="text-danger">Aga Khan University Hospital Pakistan</h4>
             <ul class="mb-5 list-group">
-                <li class="list-group-item">
-                    <a href="#" class="">Aga Khan University Hospital Karachi, Main Campus</a>
-                </li>
-                <li class="list-group-item">
-                    <a href="#" class="">Aga Khan Hospital for Women, Garden</a>
-                </li>
-                <li class="list-group-item">
-                    <a href="#">Aga Khan Hospital for Women, Karimabad</a>
-                </li>
-                <li class="list-group-item">
-                    <a href="#">Aga Khan Hospital for Women and Children, Kharadar</a>
-                </li>
-                <li class="list-group-item">
-                    <a href="#">Aga Khan Maternity and Child Care Centre, Hyderabad</a>
-                </li>
-                <li class="list-group-item">
-                    <a href="#">Aga Khan Maternity and Child Care</a>
-                </li>
-                <li class="list-group-item">
-                    <a href="#">Outreach - Clinical Laboratories</a>
-                </li>
-                <li class="list-group-item">
-                    <a href="#">Outreach - Home Health Care</a>
-                </li>
+                @foreach (var branch in Model.branches)
+                {
+                 <li class="list-group-item">
+                   <a href="#" class="text-dark">@branch.Name</a>
+                 </li>
+                }
             </ul>
         </div>
     </div>

@@ -8,11 +8,13 @@ namespace WebApplication2.Models
         [Required]
         public string Name { get; set; }
         [Required]
+        [EmailAddress]
         public string Email { get; set; }
         [Required]
         public string Password { get; set; }
         [Required]
-        public double PhoneNumber { get; set; }
+        [Phone]
+        public double  PhoneNumber { get; set; }
         public string AccessToken { get; set; }
         public DateTime JoinOn { get; set; }
         public virtual Role Role { get; set; }

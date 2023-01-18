@@ -1,6 +1,9 @@
 ﻿@using WebApplication2.Models;
 @model User;
 
+@{
+    //Layout = null;
+}
 <div class="container-fluid login-container">
     <div class="row justify-content-center align-items-center pt-2">
         <div class="d-flex justify-content-center align-items-center">
@@ -12,13 +15,13 @@
             </div>
             <form asp-action="Login" asp-controller="Account" method="post">
                 <div class="form-outline mb-2">
-                    <input type="email" class="form-control" />
+                    <input type="email" class="form-control" asp-for="Email" />
                     <label class="form-label" asp-for="Email">Email</label>
                 </div>
                 <span asp-validation-for="Email" class="text-danger"></span>
 
                 <div class="form-outline mb-2">
-                    <input type="password" class="form-control" />
+                    <input type="password" class="form-control" asp-for="Password" />
                     <label class="form-label" asp-for="Password">Password</label>
                 </div>
                 <span asp-validation-for="Password" class="text-danger"></span>
@@ -26,7 +29,20 @@
                 <div class="my-2">
                     <button type="submit" class="btn btn-danger btn-block">Login</button>
                 </div>
+                <p class="text-danger">@ViewBag.ErrorMessage</p>
             </form>
         </div>
     </div>
 </div>
+
+@section Scripts{
+    <script>
+    function call(){
+            Swal.fire(
+                'Good job!',
+                'You clicked the button!',
+                'success'
+            )
+    }
+    </script>
+}

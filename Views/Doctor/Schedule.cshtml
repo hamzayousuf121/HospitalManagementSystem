@@ -1,4 +1,7 @@
-﻿<div class="container">
+﻿@using WebApplication2.Models;
+@model List<Schedule>;
+
+<div class="container">
     <div class="row">
         <h1 class="text-danger mt-3 text-center">Schedule</h1>
 
@@ -17,6 +20,34 @@
                         <th>Clinic End Time</th>
                         <th>Action</th>
                     </tr>
+                    
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @item.Location
+                            </td>
+                            <td>
+                                @item.WeekDay.Name
+                            </td>
+                            <td>
+                                @item.ClinicStartTime
+                            </td>
+                            <td>
+                                @item.ClinicEndTime
+                            </td>
+                            <td>
+                                <button class="btn btn-warning"
+                                    data-mdb-toggle="modal"
+                                    data-mdb-target="#AddScheduleModal">
+                                    Edit
+                                </button>
+
+                                <button class="btn btn-danger" asp-controller="Doctor" asp-action="DeleteSchedule" asp-route-id="@item.Id">Delete</button>
+                            </td>
+                        </tr>
+                       
+                    }
                     <tr>
                         <td>Tele-Allergy Clinic CMS</td>
                         <td>Wednesday</td>
@@ -41,7 +72,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header bg-danger">
-                <h5 class="modal-title text-white" id="exampleModalLabel">Doctor Name</h5>
+                <h5 class="modal-title text-white" id="exampleModalLabel">Schedule</h5>
                 <button type="button" class="btn-close bg-white" data-mdb-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">

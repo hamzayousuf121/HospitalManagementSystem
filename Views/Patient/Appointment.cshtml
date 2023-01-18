@@ -1,29 +1,36 @@
-﻿<div class="container">
+﻿@using WebApplication2.Models;
+@model Appointment;
+
+<div class="container">
     <div class="row">
         <h1 class="text-danger mt-3 text-center">Doctor Appointment</h1>
 
         <div class="offset-lg-2 col-lg-8">
             <form asp-controller="Doctor" asp-action="Appointment" method="post">
+                <input type="hidden" asp-for="Id"/>
                 <div class="form-outline mb-3">
                     <input type="text" class="form-control" />
-                    <label class="form-label">Name</label>
+                    <label class="form-label" asp-for="PatientName">Name</label>
                 </div>
                 <div class="form-outline mb-3">
                     <input type="number" class="form-control" />
-                    <label class="form-label">Age</label>
+                    <label class="form-label" asp-for="PatientAge">Age</label>
                 </div>
                 <div class="form-outline mb-3">
+                    <input type="number" class="form-control" />
+                    <label class="form-label" asp-for="PatientPhoneNo">Phone No</label>
+                </div>
+                <div class="mb-3">
                     <label class="form-label">Gender</label>
-                    <select class="form-select" aria-label="Default select example">
+                    <select class="form-select" asp-for="PatientGender">
                         <option>Open this select menu</option>
-                        <option value="1">Male</option>
-                        <option value="1">Female</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
                     </select>
                 </div>
-                <div class="form-outline mb-3">
+                <div class="mb-3">
                     <label class="form-label">Blood Group</label>
-                    <select class="form-select" aria-label="Default select example">
-                        <option>Open this select menu</option>
+                    <select class="form-select" asp-for="BloodGroup" asp-items="ViewBag.BloodGroup">
                         <option value="1">0+</option>
                         <option value="1">0-</option>
                         <option value="2">A+</option>
@@ -33,20 +40,18 @@
                     </select>
                 </div>
             
-                <div class="form-outline mb-3">
+                <div class="mb-3">
                     <label class="form-label">Category</label>
-                    <select class="form-select" aria-label="Default select example">
-                        <option>Open this select menu</option>
+                    <select class="form-select" asp-for="DoctorCategory" asp-items="ViewBag.DoctorCategory">
                         <option value="1">Dentist</option>
                         <option value="1">Cardiologist</option>
                         <option value="2">Anaesthesia</option>
                     </select>
                 </div>
 
-                <div class="form-outline mb-3">
+                <div class="mb-3">
                     <label class="form-label">Doctor</label>
-                    <select class="form-select" aria-label="Default select example">
-                        <option>Open this select menu</option>
+                    <select class="form-select" asp-for="Doctor" asp-items="ViewBag.Doctor">
                         <option value="1">Hamza </option>
                         <option value="1">Ali</option>
                         <option value="2">Amin</option>
@@ -54,25 +59,17 @@
                 </div>
 
                 <div class="form-outline mb-3 mb-4">
-                    <textarea class="form-control border" rows="3"></textarea>
-                    <label class="form-label">Reason for Appointment</label>
+                    <textarea class="form-control border" rows="3" asp-for="ReasonForAppointment"></textarea>
+                    <label class="form-label" >Reason for Appointment</label>
                 </div>
-                <div class="form-outline mb-3">
+                <div class="mb-3">
                     <label class="form-label">Branch</label>
-                    <select class="form-select" >
-                        <option>Open this select menu</option>
+                    <select class="form-select" asp-for="Branch" asp-items="ViewBag.Braches">
                         <option value="1">Available</option>
                         <option value="1">Not Available</option>
                     </select>
                 </div>
-                <div class="form-outline mb-3">
-                    <label class="form-label">City</label>
-                    <select class="form-select">
-                        <option>Open this select menu</option>
-                        <option value="1">Available</option>
-                        <option value="1">Not Available</option>
-                    </select>
-                </div>
+               
                 <button type="submit" class="btn btn-block btn-danger">Submit</button>
             </form>
         </div>

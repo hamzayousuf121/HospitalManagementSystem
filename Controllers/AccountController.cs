@@ -1,40 +1,76 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using WebApplication2.Models;
 
 namespace WebApplication2.Controllers
 {
     public class AccountController : Controller
     {
+        private readonly HospitalContext _context;
+        public AccountController(HospitalContext context)
+        {
+
+            _context = context;
+
+        }
         public IActionResult Index()
         {
             return View();
         }
         [HttpGet]
-        public IActionResult Login(int id)
+        public IActionResult Login()
         {
             return View();
         }
         [HttpPost]
         public IActionResult Login(User User)
         {
-            if (ModelState.IsValid)
-            { //checking model state
-
-                //update student to db
-
-                return RedirectToAction("Login");
+            //if (ModelState.IsValid)
+            //{ //checking model state
+            //    return RedirectToAction("Login");
+            //}
+            User DbUser = _context.Users.Where(x => x.Email.ToLower().Equals(User.Email) && x.Password.Equals(User.Password)).FirstOrDefault();
+            if (DbUser is null)
+            {
+                ViewBag.ErrorMessage = "Email and Password is incorrect";
+                return View();
             }
-            Console.WriteLine(User);
-            return View();
+            CookieOptions cookieOptions = new CookieOptions();
+            cookieOptions.Expires = DateTime.Now.AddDays(30);
+            Response.Cookies.Append("user-access-token", DbUser.AccessToken, cookieOptions);
+           // ViewBag.JavaScriptFunction = string.Format("call();");
+            return Redirect("/Home/Index");
         }
-
+        [HttpGet]
         public IActionResult Register()
         {
+            ViewBag.Roles = new SelectList(_context.Roles.Where(x => x.Name != "Admin").ToList(), "Id", "Name");
             return View();
+        }
+        [HttpPost]
+        public IActionResult Register(User User)
+        {
+            User userExist = _context.Users.Where(x => x.Email.ToLower().Equals(User.Email)).FirstOrDefault();
+            if (userExist is not null)
+            {
+                ViewBag.ErrorMessage = "This Email is already Exist";
+                return View();
+            }
+
+            User.AccessToken = Guid.NewGuid().ToString();
+            User.JoinOn = DateTime.Today;
+            _context.Users.Add(User);
+            _context.SaveChanges();
+
+            CookieOptions cookieOptions = new CookieOptions();
+            cookieOptions.Expires = DateTime.Now.AddDays(30);
+            Response.Cookies.Append("user-access-token", User.AccessToken, cookieOptions);
+            return Redirect("/Home/Index");
         }
         public IActionResult Logout()
         {
-            return View();
+            Response.Cookies.Delete("user-access-token");
+            return Redirect("/Account/Login");
         }
     }
 }
