@@ -1,0 +1,21 @@
+﻿@using WebApplication2.Models;
+@model DoctorCategory
+
+<div class="container">
+    <h1 class="text-danger mt-3 text-center">Add Doctor Category</h1>
+
+    <div class="mt-4">
+        <form asp-controller="Admin" asp-action="AddOrUpdateDoctorCategory" method="post">
+            <input type="hidden" asp-for="Id" />
+
+            <div class="mb-3">
+                <label class="form-label" asp-for="Name">Doctor Category</label>
+                <input type="text" class="form-control" asp-for="Name" />
+            </div>
+            <span asp-validation-for="Name" class="text-danger"></span>
+
+            <button type="submit" class="btn btn-block btn-danger">Submit</button>
+        </form>
+    </div>
+
+</div>

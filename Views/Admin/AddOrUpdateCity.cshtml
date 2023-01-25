@@ -1,0 +1,22 @@
+﻿@using WebApplication2.Models;
+@model City
+
+
+<div class="container">
+    <h1 class="text-danger mt-3 text-center">Add City</h1>
+
+    <div class="mt-4">
+        <form asp-controller="Admin" asp-action="AddOrUpdateCity" method="post">
+            <input type="hidden" asp-for="Id" />
+
+            <div class="mb-3">
+                <label class="form-label" asp-for="Name">City</label>
+                <input type="text" class="form-control" asp-for="Name" />
+            </div>
+            <span asp-validation-for="Name" class="text-danger"></span>
+
+            <button type="submit" class="btn btn-block btn-danger">Submit</button>
+        </form>
+    </div>
+
+</div>

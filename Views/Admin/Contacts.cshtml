@@ -1,0 +1,80 @@
+﻿@using WebApplication2.Models
+@model List<Contact>
+
+
+<div class="container-fluid ms-5 ms-md-0 mt-4">
+    <div class="d-flex flex-start">
+        <a class="btn btn-danger" asp-controller="Admin" asp-action="AddOrUpdateContact">Create New Record</a>
+    </div>
+</div>
+
+<div class="container-fluid mt-2">
+    <div class="row">
+
+        <table class="table table-hover mt-3 table-striped">
+            <tbody>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Address Details</th>
+                    <th>Branch Name</th>
+                    <th>Hospital Email</th>
+                    <th>Hospital Fax Number</th>
+                    <th>Hospital TelePhone Number</th>
+                    <th>Hospital Google Map Code</th>
+                    <th>Action</th>
+                </tr>
+                @if (Model != null && Model.Count > 0)
+                {
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @item.Id
+                            </td>
+                            <td>
+                                @item.Name
+                            </td>
+                            <td>
+                                @item.AddressDetails
+                            </td>
+                            <td>
+                                @item.Branch.Name
+                            </td>
+                            <td>
+                                @item.HospitalEmail
+                            </td>
+                            <td>
+                                @item.HospitalFaxNumber
+                            </td>
+                            <td>
+                                @item.HospitalTelephone
+                            </td>
+                            <td>
+
+                                <iframe class="embed-responsive-item w-100"
+                                src="@item.HospitalMapCode"
+                                allowfullscreen
+                                height="200"
+                                width="300"
+                                title="This is google aga khan Map"
+                                alt="This is google aga khan Map">
+                                </iframe>
+                            </td>
+                            <td>
+                                <a asp-controller="Admin" asp-action="AddOrUpdateContact" asp-route-id="@item.Id" class="btn btn-warning text-white">
+                                    Edit
+                                </a>
+                                <a asp-controller="Admin" asp-action="DeleteContact" asp-route-id="@item.Id" class="btn btn-danger text-white">
+                                    Delete
+                                </a>
+
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+
+    </div>
+</div>

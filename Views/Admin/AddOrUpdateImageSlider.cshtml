@@ -1,0 +1,22 @@
+﻿@using WebApplication2.Models;
+@model ImageSlider
+
+
+<div class="container">
+    <h1 class="text-danger mt-3 text-center">Add Image Slider</h1>
+
+    <div class="mt-4">
+        <form asp-controller="Admin" asp-action="AddOrUpdateImageSlider" method="post" enctype="multipart/form-data">
+            <input type="hidden" asp-for="Id" />
+
+            <div class="mb-3">
+                <label class="form-label" asp-for="Url">Upload Image</label>
+                <input type="file" class="form-control" asp-for="Url" name="imageSlider" />
+            </div>
+            <span asp-validation-for="Url" class="text-danger"></span>
+
+            <button type="submit" class="btn btn-block btn-danger">Submit</button>
+        </form>
+    </div>
+
+</div>

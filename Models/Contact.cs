@@ -13,10 +13,12 @@ namespace WebApplication2.Models
         [Required]
         public string AddressDetails { get; set; }
         [Required]
+        [Phone]
         public double HospitalTelephone { get; set; }
         [Required]
         public string  HospitalFaxNumber { get; set; }
         [Required]
+        [EmailAddress]
         public string HospitalEmail { get; set; }
         [Required]
         public string HospitalMapCode { get; set; }

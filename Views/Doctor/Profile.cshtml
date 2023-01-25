@@ -4,79 +4,61 @@
 
         <div class="offset-lg-2 col-lg-8">
             <form asp-controller="Patient" asp-action="profile" method="post">
-                <div class="form-outline mb-3">
-                    <input type="text" class="form-control" />
-                    <label class="form-label">Name</label>
-                </div>
-                <div class="form-outline mb-3">
-                    <input type="number" class="form-control" />
-                    <label class="form-label">Age</label>
-                </div>
-                <div class="form-outline mb-3">
-                    <input type="number" class="form-control" />
-                    <label class="form-label">Fees</label>
-                </div>
-                <label class="form-label">Upload Your Image</label>
-                <div class="form-outline mb-3">
-                    <input type="file" class="form-control" />
-                </div>
-                <div class="form-outline mb-3 mb-4">
-                    <textarea class="form-control" rows="3"></textarea>
-                    <label class="form-label">Adress Details</label>
-                </div>
-                <div class="form-outline mb-3 mb-4">
-                    <textarea class="form-control" rows="3"></textarea>
-                    <label class="form-label">About</label>
-                </div>
+                    <div class="form-outline mb-3">
+                        <input type="text" class="form-control" />
+                        <label class="form-label">Name</label>
+                    </div>
+                    <div class="form-outline mb-3">
+                        <input type="number" class="form-control" />
+                        <label class="form-label">Age</label>
+                    </div>
+                    <div class="form-outline mb-3">
+                        <input type="number" class="form-control" />
+                        <label class="form-label">Fees</label>
+                    </div>
+                    <label class="form-label">Upload Your Image</label>
+                    <div class="form-outline mb-3">
+                        <input type="file" class="form-control" />
+                    </div>
+                    <div class="form-outline mb-3 mb-4">
+                        <textarea class="form-control" rows="3"></textarea>
+                        <label class="form-label">Adress Details</label>
+                    </div>
+                    <div class="form-outline mb-3 mb-4">
+                        <textarea class="form-control" rows="3"></textarea>
+                        <label class="form-label">About</label>
+                    </div>
 
-                <div class="form-outline mb-3">
-                    <input type="number" class="form-control" />
-                    <label class="form-label">Degree</label>
-                </div>
-                <div class="form-outline mb-3">
-                    <input type="number" class="form-control" />
-                    <label class="form-label">Education</label>
-                </div>
-                <div class="form-outline mb-3">
-                    <input type="number" class="form-control" />
-                    <label class="form-label">Designation</label>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Category</label>
-                    <select class="form-select" aria-label="Default select example">
-                        <option>Open this select menu</option>
-                        <option value="1">Dentist</option>
-                        <option value="1">Cardiologist</option>
-                        <option value="2">Anaesthesia</option>
-                    </select>
-                </div>
+                    <div class="form-outline mb-3">
+                        <input type="number" class="form-control" />
+                        <label class="form-label">Degree</label>
+                    </div>
+                    <div class="form-outline mb-3">
+                        <input type="number" class="form-control" />
+                        <label class="form-label">Education</label>
+                    </div>
+                    <div class="form-outline mb-3">
+                        <input type="number" class="form-control" />
+                        <label class="form-label">Designation</label>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Category</label>
+                        <select class="form-select" asp-items="@ViewBag.DoctorCategories">
+                        </select>
+                    </div>
 
-                <div class="mb-3">
-                    <label class="form-label">Status</label>
-                    <select class="form-select" aria-label="Default select example">
-                        <option>Open this select menu</option>
-                        <option value="1">Available</option>
-                        <option value="1">Not Available</option>
-                    </select>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Branch</label>
-                    <select class="form-select" aria-label="Default select example">
-                        <option>Open this select menu</option>
-                        <option value="1">Available</option>
-                        <option value="1">Not Available</option>
-                    </select>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">City</label>
-                    <select class="form-select" aria-label="Default select example">
-                        <option>Open this select menu</option>
-                        <option value="1">Available</option>
-                        <option value="1">Not Available</option>
-                    </select>
-                </div>
-                <button type="submit" class="btn btn-block btn-danger">Submit</button>
-            </form>
+                    <div class="mb-3">
+                        <label class="form-label">Status</label>
+                        <select class="form-select" asp-items="@ViewBag.DoctorStatuses">
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Branch</label>
+                        <select class="form-select" asp-items="@ViewBag.Branches">
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-block btn-danger">Submit</button>
+                </form>
         </div>
 
     </div>

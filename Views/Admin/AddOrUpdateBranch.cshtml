@@ -1,0 +1,25 @@
+﻿@using WebApplication2.Models;
+@model Branch
+
+<div class="container">
+    <h1 class="text-danger mt-3 text-center">Add Branch</h1>
+
+    <div class="mt-4">
+        <form asp-controller="Admin" asp-action="AddOrUpdateBranch" method="post">
+            <input type="hidden" asp-for="Id" />
+            <div class="mb-3">
+                <label class="form-label" asp-for="Name">Branch Name</label>
+                <input type="text" class="form-control" asp-for="Name" />
+            </div>
+            <span asp-validation-for="Name" class="text-danger"></span>
+
+            <div class="mb-3">
+                <label class="form-label" asp-for="CityId">Select City</label>
+                <select class="form-control" asp-for="CityId" asp-items="@ViewBag.Cities"></select>
+            </div>
+            <span asp-validation-for="CityId" class="text-danger"></span>
+            <button type="submit" class="btn btn-block btn-danger">Submit</button>
+        </form>
+    </div>
+
+</div>

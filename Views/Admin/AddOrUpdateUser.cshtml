@@ -1,0 +1,48 @@
+﻿@using WebApplication2.Models;
+@model User
+
+<div class="container">
+    <h1 class="text-danger mt-3 text-center">Add User</h1>
+
+    <div class="mt-4">
+        <form asp-action="AddOrUpdateUser" asp-controller="Admin" method="post">
+
+            <div class="form-outline mb-2">
+                <input type="text" class="form-control" asp-for="Name" />
+                <label class="form-label" asp-for="Name">Name</label>
+            </div>
+            <span asp-validation-for="Name" class="text-danger"></span>
+
+            <div class="form-outline mb-2">
+                <input type="email" class="form-control" asp-for="Email" />
+                <label class="form-label" asp-for="Email">Email</label>
+            </div>
+            <span asp-validation-for="Email" class="text-danger"></span>
+
+            <div class="form-outline mb-2">
+                <input type="password" class="form-control" asp-for="Password" />
+                <label class="form-label" asp-for="Password">Password</label>
+            </div>
+            <span asp-validation-for="Password" class="text-danger"></span>
+
+            <div class="form-outline mb-2">
+                <input type="tel" class="form-control" asp-for="PhoneNumber" />
+                <label class="form-label" asp-for="PhoneNumber">Phone Number</label>
+            </div>
+            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+
+            <div class="mb-2">
+                <label class="form-label" asp-for="RoleId">Select Your Role</label>
+                <select class="form-control" asp-for="RoleId" asp-items="ViewBag.Roles"></select>
+            </div>
+            <span asp-validation-for="RoleId" class="text-danger"></span>
+
+            <div class="my-2">
+                <button type="submit" class="btn btn-danger btn-block">Submit</button>
+            </div>
+            <span class="text-danger">@ViewBag.ErrorMessage</span>
+        </form>
+
+    </div>
+
+</div>

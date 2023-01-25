@@ -23,8 +23,10 @@ namespace WebApplication2.Controllers
         {
             HomeViewModel model = new HomeViewModel();
             model.branches = _context.Branches.ToList();
+            model.ImageSliders = _context.ImageSliders.ToList();
             return View(model);
         }
+
         public IActionResult Contact()
         {
             List<Contact> Contacts = _context.Contacts.Include(x => x.Branch).ThenInclude(y => y.City).ToList();

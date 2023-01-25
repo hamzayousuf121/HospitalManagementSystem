@@ -1,0 +1,27 @@
+﻿@using WebApplication2.Models;
+@model Service
+
+<div class="container">
+    <h1 class="text-danger mt-3 text-center">Add Service</h1>
+
+    <div class="mt-4">
+        <form asp-controller="Admin" asp-action="AddOrUpdateService" method="post">
+            <div class="mb-3">
+                <label class="form-label" asp-for="Title">Service Title</label>
+                <input type="text" class="form-control" asp-for="Title" />
+            </div>
+              <div class="mb-3">
+                <label class="form-label" asp-for="ImageUrl">Upload Service Image</label>
+                <input type="file" class="form-control" name="serviceImage" />
+
+            </div>
+              <div class="mb-3">
+                <textarea class="form-label" asp-for="Description">Service Description</textarea>
+                <input type="text" class="form-control" asp-for="Description" />
+            </div>
+            
+            <button type="submit" class="btn btn-block btn-danger">Add</button>
+        </form>
+    </div>
+
+</div>

@@ -1,0 +1,48 @@
+﻿@using WebApplication2.Models
+@model List<WeekDay>
+
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="d-flex flex-start">
+            <a asp-controller="Admin" asp-action="AddOrUpdateWeekDay" class="text-white btn btn-danger">
+                Add new Record
+            </a>
+        </div>
+        <table class="table table-hover mt-3 table-striped">
+            <tbody>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Action</th>
+                </tr>
+                @if (Model != null && Model.Count > 0)
+                {
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @item.Id
+                            </td>
+                            <td>
+                                @item.Name
+                            </td>
+
+                            <td>
+                                <a asp-controller="Admin" asp-action="AddOrUpdateWeekDay" asp-route-id="@item.Id" class="btn btn-warning text-white">
+                                    Edit
+                                </a>
+                                <a asp-controller="Admin" asp-action="DeleteWeekDay" asp-route-id="@item.Id" class="btn btn-danger text-white">
+                                    Delete
+                                </a>
+
+                            </td>
+                        </tr>
+
+                    }
+                }
+            </tbody>
+        </table>
+
+    </div>
+</div>

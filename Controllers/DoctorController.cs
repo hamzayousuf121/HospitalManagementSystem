@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using WebApplication2.Models;
 
 namespace WebApplication2.Controllers
@@ -17,19 +18,38 @@ namespace WebApplication2.Controllers
         }
         public IActionResult Doctor()
         {
+            ViewBag.Categories = new SelectList(_context.DoctorCategories.ToList(), "Id", "Name") ;
             return View();
         }
         [HttpGet]
-        public IActionResult Schedule()
+        public IActionResult Schedule(int id)
         {
-            return View();
+            Schedule Schedules = _context.Schedules.Where(x => x.Id == id).FirstOrDefault();
+            return View(Schedules);
+        }
+
+        [HttpGet]
+        public IActionResult AddOrUpdateSchedule(int id)
+        {
+            ViewBag.Weekdays = new SelectList(_context.WeekDays.ToList(), "Id", "Name");
+
+            if (id == 0)
+            {
+                return View();
+            }
+            else
+            {
+               Schedule Schedule = _context.Schedules.Where(x=> x.Id == id).FirstOrDefault();
+                return View(Schedule);
+            }
+          
         }
         [HttpPost]
-        public IActionResult Schedule(Schedule Schedule)
+        public IActionResult AddOrUpdateSchedule(Schedule Schedule)
         {
-           _context.Schedules.Update(Schedule);
+            _context.Schedules.Update(Schedule);
             _context.SaveChanges();
-            return View();
+            return Redirect("/Doctor/Schedule");
         }
         public IActionResult Profile()
         {

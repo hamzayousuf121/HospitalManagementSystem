@@ -12,14 +12,20 @@
                     <input type="text" class="form-control" />
                     <label class="form-label" asp-for="PatientName">Name</label>
                 </div>
+                <span asp-validation-for="PatientName" class="text-danger"></span>
+
                 <div class="form-outline mb-3">
                     <input type="number" class="form-control" />
                     <label class="form-label" asp-for="PatientAge">Age</label>
                 </div>
+                <span asp-validation-for="PatientAge" class="text-danger"></span>
+
                 <div class="form-outline mb-3">
                     <input type="number" class="form-control" />
                     <label class="form-label" asp-for="PatientPhoneNo">Phone No</label>
                 </div>
+                <span asp-validation-for="PatientPhoneNo" class="text-danger"></span>
+
                 <div class="mb-3">
                     <label class="form-label">Gender</label>
                     <select class="form-select" asp-for="PatientGender">
@@ -27,17 +33,16 @@
                         <option value="Male">Male</option>
                         <option value="Female">Female</option>
                     </select>
+                    <span asp-validation-for="PatientGender" class="text-danger"></span>
+
                 </div>
+
                 <div class="mb-3">
-                    <label class="form-label">Blood Group</label>
+                    <label class="form-label" asp-for="BloodGroup">Blood Group</label>
                     <select class="form-select" asp-for="BloodGroup" asp-items="ViewBag.BloodGroup">
-                        <option value="1">0+</option>
-                        <option value="1">0-</option>
-                        <option value="2">A+</option>
-                        <option value="2">A-</option>
-                        <option value="3">B+</option>
-                        <option value="3">B-</option>
                     </select>
+                    <span asp-validation-for="BloodGroup" class="text-danger"></span>
+
                 </div>
             
                 <div class="mb-3">
@@ -47,6 +52,8 @@
                         <option value="1">Cardiologist</option>
                         <option value="2">Anaesthesia</option>
                     </select>
+                    <span asp-validation-for="DoctorCategory" class="text-danger"></span>
+
                 </div>
 
                 <div class="mb-3">
@@ -56,20 +63,26 @@
                         <option value="1">Ali</option>
                         <option value="2">Amin</option>
                     </select>
+                    <span asp-validation-for="Doctor" class="text-danger"></span>
+
                 </div>
 
                 <div class="form-outline mb-3 mb-4">
                     <textarea class="form-control border" rows="3" asp-for="ReasonForAppointment"></textarea>
                     <label class="form-label" >Reason for Appointment</label>
+                    <span asp-validation-for="ReasonForAppointment" class="text-danger"></span>
+
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Branch</label>
                     <select class="form-select" asp-for="Branch" asp-items="ViewBag.Braches">
                         <option value="1">Available</option>
                         <option value="1">Not Available</option>
+                        <span asp-validation-for="Branch" class="text-danger"></span>
+
                     </select>
                 </div>
-               
+
                 <button type="submit" class="btn btn-block btn-danger">Submit</button>
             </form>
         </div>

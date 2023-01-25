@@ -1,0 +1,31 @@
+﻿@using WebApplication2.Models;
+@model Schedule
+
+<div class="container">
+    <h1 class="text-danger mt-3 text-center">Add Doctor Schedule</h1>
+
+    <div class="mt-4">
+            <form asp-controller="Doctor" asp-action="AddOrUpdateSchedule" method="post">
+        <div class="mb-3">
+                <label class="form-label" asp-for="Location">Clinic Location</label>
+            <input type="text" class="form-control" asp-for="Location"/>
+        </div>
+        <div class="mb-3">
+                <label class="form-label" asp-for="WeekDayId">Day</label>
+            <select class="form-select" asp-items="ViewBag.Weekdays" asp-for="WeekDayId">
+            </select>
+        </div>
+        <div class=" mb-3">
+                <label class="form-label" asp-for="ClinicStartTime">Clinic Start Time</label>
+            <input type="time" class="form-control" asp-for="ClinicStartTime"/>
+        </div>
+        <div class="mb-3">
+                <label class="form-label" asp-for="ClinicEndTime">Clinic End Time</label>
+            <input type="time" class="form-control" asp-for="ClinicEndTime" />
+        </div>
+
+        <button type="submit" class="btn btn-block btn-danger">Add</button>
+    </form>
+    </div>
+
+</div>

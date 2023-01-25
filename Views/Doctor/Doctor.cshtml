@@ -10,11 +10,7 @@
     <div class="row">
         <section class="w-100 py-4">
             <label for="">Specialty</label>
-            <select class="form-select" aria-label="Default select example">
-                <option>Open this select menu</option>
-                <option value="1">Dentist</option>
-                <option value="2">Cardilogist</option>
-                <option value="3">Consutant</option>
+            <select class="form-select" asp-items="@ViewBag.Categories">
             </select>
         </section>
 
