@@ -1,64 +1,85 @@
-﻿<div class="container">
+﻿@using WebApplication2.Models;
+@model Doctor
+@{
+    ViewData["Title"] = "Profile";
+}
+<div class="container">
     <div class="row">
         <h1 class="text-danger mt-3 text-center">Doctor Profile</h1>
 
         <div class="offset-lg-2 col-lg-8">
-            <form asp-controller="Patient" asp-action="profile" method="post">
-                    <div class="form-outline mb-3">
-                        <input type="text" class="form-control" />
-                        <label class="form-label">Name</label>
-                    </div>
-                    <div class="form-outline mb-3">
-                        <input type="number" class="form-control" />
-                        <label class="form-label">Age</label>
-                    </div>
-                    <div class="form-outline mb-3">
-                        <input type="number" class="form-control" />
-                        <label class="form-label">Fees</label>
-                    </div>
-                    <label class="form-label">Upload Your Image</label>
-                    <div class="form-outline mb-3">
-                        <input type="file" class="form-control" />
-                    </div>
-                    <div class="form-outline mb-3 mb-4">
-                        <textarea class="form-control" rows="3"></textarea>
-                        <label class="form-label">Adress Details</label>
-                    </div>
-                    <div class="form-outline mb-3 mb-4">
-                        <textarea class="form-control" rows="3"></textarea>
-                        <label class="form-label">About</label>
-                    </div>
+            <form asp-controller="Doctor" asp-action="AddOrUpdateProfile" method="post">
+                <input type="hidden" asp-for="Id" />
+                <div class="form-outline mb-3">
+                    <input type="text" class="form-control" asp-for="Name" />
+                    <label class="form-label" asp-for="Name">Name</label>
+                </div>
+                <span asp-validation-for="Name" class="text-danger"></span>
 
-                    <div class="form-outline mb-3">
-                        <input type="number" class="form-control" />
-                        <label class="form-label">Degree</label>
-                    </div>
-                    <div class="form-outline mb-3">
-                        <input type="number" class="form-control" />
-                        <label class="form-label">Education</label>
-                    </div>
-                    <div class="form-outline mb-3">
-                        <input type="number" class="form-control" />
-                        <label class="form-label">Designation</label>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Category</label>
-                        <select class="form-select" asp-items="@ViewBag.DoctorCategories">
-                        </select>
-                    </div>
+                <div class="form-outline mb-3">
+                    <input type="number" class="form-control" asp-for="Age" />
+                    <label class="form-label" asp-for="Age">Age</label>
+                </div>
+                <span asp-validation-for="Age" class="text-danger"></span>
 
-                    <div class="mb-3">
-                        <label class="form-label">Status</label>
-                        <select class="form-select" asp-items="@ViewBag.DoctorStatuses">
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Branch</label>
-                        <select class="form-select" asp-items="@ViewBag.Branches">
-                        </select>
-                    </div>
-                    <button type="submit" class="btn btn-block btn-danger">Submit</button>
-                </form>
+                <div class="form-outline mb-3">
+                    <input type="number" class="form-control" asp-for="Fees" />
+                    <label class="form-label" asp-for="Fees">Fees</label>
+                </div>
+                <span asp-validation-for="Fees" class="text-danger"></span>
+
+                <div class="mb-3">
+                    <label class="form-label" asp-for="ImageUrl">Upload Your Image</label>
+                    <input type="file" class="form-control" asp-for="ImageUrl" accept="image/*" />
+                </div>
+                <span asp-validation-for="ImageUrl" class="text-danger"></span>
+
+                <div class="mb-3">
+                    <label class="form-label" asp-for="Address">Adress Details</label>
+                    <textarea class="form-control" rows="3" asp-for="Address"></textarea>
+                </div>
+                <span asp-validation-for="Address" class="text-danger"></span>
+
+                <div class="mb-3">
+                    <label class="form-label" asp-for="About">About</label>
+                    <textarea class="form-control" rows="3" asp-for="About"></textarea>
+                </div>
+                <span asp-validation-for="About" class="text-danger"></span>
+
+                <div class="form-outline mb-3">
+                    <input type="text" class="form-control" asp-for="Degree" />
+                    <label class="form-label" asp-for="Degree">Degree</label>
+                </div>
+                <span asp-validation-for="Degree" class="text-danger"></span>
+
+                <div class="form-outline mb-3">
+                    <input type="text" class="form-control" asp-for="Designation" />
+                    <label class="form-label" asp-for="Designation">Designation</label>
+                </div>
+                <span asp-validation-for="Designation" class="text-danger"></span>
+
+                <div class="mb-3">
+                    <label class="form-label" asp-for="DoctorCategoryId">Category</label>
+                    <select class="form-select" asp-items="@ViewBag.DoctorCategories" asp-for="DoctorCategoryId">
+                    </select>
+                    <span asp-validation-for="DoctorCategoryId" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" asp-for="DoctorStatusId">Status</label>
+                    <select class="form-select" asp-items="@ViewBag.DoctorStatuses" asp-for="DoctorStatusId">
+                    </select>
+                    <span asp-validation-for="DoctorStatusId" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" asp-for="BranchId">Branch</label>
+                    <select class="form-select" asp-items="@ViewBag.Branches" asp-for="BranchId">
+                    </select>
+                    <span asp-validation-for="BranchId" class="text-danger"></span>
+                </div>
+                <button type="submit" class="btn btn-block btn-danger">Submit</button>
+            </form>
         </div>
 
     </div>

@@ -7,7 +7,6 @@ namespace WebApplication2.Models
         public int Id { get; set; }
         [Required]
         public string Name { get; set; }
-        [Required]
         public int Age { get; set; }
         [Required]
         public string Degree { get; set; }
@@ -29,8 +28,7 @@ namespace WebApplication2.Models
         public virtual Branch Branch { get; set; }
         [Required]
         public int BranchId { get; set; }
-        [Required]
-        public string ImageUrl { get; set; }
+        public string? ImageUrl { get; set; }
         public virtual DoctorCategory DoctorCategory { get; set; }
         [Required]
         public int DoctorCategoryId { get; set; }

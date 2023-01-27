@@ -1,8 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Data;
+using System.Numerics;
 using WebApplication2.Models;
+using static System.Net.Mime.MediaTypeNames;
+
 namespace WebApplication2.Controllers
 {
     public class AdminController : Controller
@@ -46,14 +50,17 @@ namespace WebApplication2.Controllers
         public IActionResult AddOrUpdateImageSlider(ImageSlider imageSlider)
         {
             var file = Request.Form.Files["imageSlider"];
-            imageSlider.Url = $"{DateTime.UtcNow.Ticks}.jpg";
-            var path = $"{_environment.ContentRootPath}/wwwroot/assets/img/{imageSlider.Url}";
-            file.CopyTo(new FileStream(path, FileMode.Create));
+            if (file is not null)
+            {
+                imageSlider.Url = $"{DateTime.UtcNow.Ticks}.jpg";
+                var path = $"{_environment.ContentRootPath}/wwwroot/assets/img/{imageSlider.Url}";
+                file.CopyTo(new FileStream(path, FileMode.Create));
+            } 
             _context.ImageSliders.Update(imageSlider);
             _context.SaveChanges();
             return Redirect("/Admin/ImageSliders");
         }
-     
+
         public IActionResult DeleteImageSlider(int id)
         {
             ImageSlider imageSlider = _context.ImageSliders.Where(x => x.Id == id).FirstOrDefault();
@@ -225,8 +232,6 @@ namespace WebApplication2.Controllers
             }
             return Redirect("/Admin/cities");
         }
-
-
         public IActionResult Roles()
         {
             List<Role> roles = _context.Roles.ToList();
@@ -266,7 +271,61 @@ namespace WebApplication2.Controllers
             return Redirect("/Admin/Roles");
         }
 
+        public IActionResult Appointments()
+        {
+            Console.WriteLine(HttpContext.Request);
 
+            List<Appointment> appointments = _context.Appointments.Include(x=> x.BloodGroup).Include(x=> x.AppointmentStatus).Include(x => x.Doctor).Include(x => x.DoctorCategory).ToList();
+            return View(appointments);
+        }
+
+        [HttpGet] 
+        public IActionResult AddOrUpdateAppointment(int id)
+        {
+            ViewBag.Categories = new SelectList(_context.DoctorCategories.ToList(), "Id", "Name");
+            ViewBag.Doctors = new SelectList(_context.Doctors.ToList(), "Id", "Name");
+            ViewBag.BloodGroups = new SelectList(_context.BloodGroups.ToList(), "Id", "Name");
+
+            if (id == 0)
+            {
+                return View();
+            }
+            else
+            {
+                Appointment appointment = _context.Appointments.Where(x => x.Id == id).FirstOrDefault();
+                return View(appointment);
+            }
+        }
+
+        [HttpPost]
+        public IActionResult AddOrUpdateAppointment(Appointment appointment)
+        {
+            appointment.AppointmentStatusId = 4;
+            appointment.CreatedAt= DateTime.Now;
+            _context.Appointments.Update(appointment);
+            _context.SaveChanges();
+
+            return Redirect("/Admin/Appointments");
+        }
+
+        public IActionResult DeleteAppointment(int id)
+        {
+            Appointment appointment = _context.Appointments.Where(x => x.Id == id).FirstOrDefault();
+            if (appointment is not null)
+            {
+                _context.Appointments.Remove(appointment);
+                _context.SaveChanges();
+            }
+            return Redirect("/Admin/Appointments");
+        }
+
+        public IActionResult ChangeAppointmentStatus(int Id, int appointmentStatusId)
+        {
+          Appointment appointment =  _context.Appointments.Where(x => x.Id == Id).FirstOrDefault();
+            appointment.AppointmentStatusId = appointmentStatusId;
+            _context.SaveChanges();
+           return Redirect("/Doctor/Appointment");
+        }
         public IActionResult AppointmentStatuses()
         {
             List<AppointmentStatus> appointmentStatuses = _context.AppointmentStatuses.ToList();
@@ -343,7 +402,6 @@ namespace WebApplication2.Controllers
             }
             return Redirect("/Admin/DoctorStatuses");
         }
-
 
         public IActionResult DoctorCategories()
         {
@@ -448,6 +506,13 @@ namespace WebApplication2.Controllers
         [HttpPost]
         public IActionResult AddOrUpdateUser(User user)
         {
+            user.AccessToken = Guid.NewGuid().ToString();
+            user.JoinOn = DateTime.Today;
+           
+            CookieOptions cookieOptions = new CookieOptions();
+            cookieOptions.Expires = DateTime.Now.AddDays(30);
+            Response.Cookies.Append("user-access-token", user.AccessToken, cookieOptions);
+
             _context.Users.Update(user);
             _context.SaveChanges();
             return Redirect("/Admin/Users");
@@ -466,7 +531,7 @@ namespace WebApplication2.Controllers
 
         public IActionResult Doctors()
         {
-            List<Doctor> doctors = _context.Doctors.ToList();
+            List<Doctor> doctors = _context.Doctors.Include(x=> x.DoctorStatus).Include(x=> x.DoctorCategory).ToList();
             return View(doctors);
         }
 
@@ -476,6 +541,7 @@ namespace WebApplication2.Controllers
             ViewBag.DoctorStatuses = new SelectList(_context.DoctorStatuses.ToList(), "Id", "Name");
             ViewBag.DoctorCategories = new SelectList(_context.DoctorCategories.ToList(), "Id", "Name");
             ViewBag.Branches = new SelectList(_context.Branches.ToList(), "Id", "Name");
+
             if (id == 0)
             {
                 return View();
@@ -490,6 +556,19 @@ namespace WebApplication2.Controllers
         [HttpPost]
         public IActionResult AddOrUpdateDoctor(Doctor doctor)
         {
+            string accessToken = Request.Cookies["user-access-token"];
+            User user = _context.Users.Where(x => x.AccessToken == accessToken).FirstOrDefault();
+
+            var file = Request.Form.Files["ImageUrl"];
+            if (file is not null)
+            {
+                doctor.ImageUrl = $"{DateTime.UtcNow.Ticks}.jpg";
+                var path = $"{_environment.ContentRootPath}/wwwroot/assets/img/{doctor.ImageUrl}";
+                file.CopyTo(new FileStream(path, FileMode.Create));
+            }
+
+            doctor.UserId = user.Id;
+
             _context.Doctors.Update(doctor);
             _context.SaveChanges();
             return Redirect("/Admin/Doctors");
@@ -506,17 +585,17 @@ namespace WebApplication2.Controllers
             return Redirect("/Admin/Doctors");
         }
 
-
         public IActionResult Patients()
         {
-            List<Patient> patients = _context.Patients.Include(x => x.City).ToList();
+            List<Patient> patients = _context.Patients.Include(x => x.City).Include(x => x.BloodGroup).ToList();
             return View(patients);
         }
 
         [HttpGet]
         public IActionResult AddOrUpdatePatient(int id)
         {
-            //ViewBag.Cities = new SelectList(_context.Cities.ToList(), "Id", "Name");
+            ViewBag.Cities = new SelectList(_context.Cities.ToList(), "Id", "Name");
+            ViewBag.BloodGroups = new SelectList(_context.BloodGroups.ToList(), "Id", "Name");
             if (id == 0)
             {
                 return View();
@@ -524,6 +603,7 @@ namespace WebApplication2.Controllers
             else
             {
                 Patient patient = _context.Patients.Where(x => x.Id == id).FirstOrDefault();
+                Console.WriteLine("Test");
                 return View(patient);
             }
         }
@@ -531,6 +611,18 @@ namespace WebApplication2.Controllers
         [HttpPost]
         public IActionResult AddOrUpdatePatient(Patient patient)
         {
+            string accessToken = Request.Cookies["user-access-token"];
+            User user = _context.Users.Where(x => x.AccessToken == accessToken).FirstOrDefault();
+            var file = Request.Form.Files["ImageUrl"];
+           
+            if(file is not null)
+            {
+                patient.ImageUrl = $"{DateTime.UtcNow.Ticks}.jpg";
+                var path = $"{_environment.ContentRootPath}/wwwroot/assets/img/{patient.ImageUrl}";
+                file.CopyTo(new FileStream(path, FileMode.Create));
+            }
+
+            patient.UserId = user.Id;
             _context.Patients.Update(patient);
             _context.SaveChanges();
             return Redirect("/Admin/Patients");
@@ -556,7 +648,7 @@ namespace WebApplication2.Controllers
         [HttpGet]
         public IActionResult AddOrUpdateService(int id)
         {
-            
+
             if (id == 0)
             {
                 return View();
@@ -571,6 +663,15 @@ namespace WebApplication2.Controllers
         [HttpPost]
         public IActionResult AddOrUpdateService(Service service)
         {
+            var file = Request.Form.Files["serviceImage"];
+
+            if (file is not null)
+            {
+                service.ImageUrl = $"{DateTime.UtcNow.Ticks}.jpg";
+                string path = $"{_environment.ContentRootPath}/wwwroot/assets/img/{service.ImageUrl}";
+                file.CopyTo(new FileStream(path, FileMode.Create));
+            }
+           
             _context.Services.Update(service);
             _context.SaveChanges();
             return Redirect("/Admin/Services");
@@ -585,6 +686,47 @@ namespace WebApplication2.Controllers
                 _context.SaveChanges();
             }
             return Redirect("/Admin/Services");
+        }
+
+        public IActionResult Schedule(int id)
+        {
+            Schedule Schedules = _context.Schedules.Where(x => x.Id == id).FirstOrDefault();
+            return View(Schedules);
+        }
+
+        [HttpGet]
+        public IActionResult AddOrUpdateSchedule(int id)
+        {
+            ViewBag.Weekdays = new SelectList(_context.WeekDays.ToList(), "Id", "Name");
+
+            if (id == 0)
+            {
+                return View();
+            }
+            else
+            {
+                Schedule Schedule = _context.Schedules.Where(x => x.Id == id).FirstOrDefault();
+                return View(Schedule);
+            }
+
+        }
+        [HttpPost]
+        public IActionResult AddOrUpdateSchedule(Schedule Schedule)
+        {
+            _context.Schedules.Update(Schedule);
+            _context.SaveChanges();
+            return Redirect("/Doctor/Schedule");
+        }
+        public IActionResult DeleteSchedule(int id)
+        {
+            Schedule Schedule = _context.Schedules.Where(x => x.Id == id).FirstOrDefault();
+            if (Schedule != null)
+            {
+                _context.Schedules.Remove(Schedule);
+                _context.SaveChanges();
+
+            }
+            return Redirect("/Doctor/Schedule");
         }
     }
 }

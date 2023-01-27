@@ -1,56 +1,31 @@
-﻿
+﻿@using WebApplication2.Models;
+@model List<Service>;
+
+@{
+    ViewData["Title"] = "Service";
+}
 
 <div class="container">
     <h1 class="text-danger Text-center mt-3">Service </h1>
     <div class="border border-bottom-3">
     </div>
 
-    <div class="bg-light" >
-        <div class="container">
-            <div class="row">
-                <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6" >
-                    <div class="bg-light pl-0 my-5 py-0 rounded-0 jumbotron" >
-                        <h1>World Class Quality Health Services</h1>
-                            <p>
-                            The Aga Khan University Hospital strives to maintain the highest standards of safe and quality
-                            health care for all patients, in all our facilities. Our Quality and Patient Safety team at the
-                            Aga Khan University Hospital have excessive training and experience in managing and ensuring the
-                            highest Quality Standards within our facilities and systems to ensure patient safety. We ensure that
-                            proper checks and balances are followed in all aspects of the delivery of our healthcare services,
-                            including Infection Control.
-                        </p>
+    <div class="container bg-light">
+        <div class="row row-cols-1 row-cols-md-2 g-4">
+            @foreach (var service in Model)
+            {
+                <div class="col">
+                    <div class="card">
+                        <img src="/assets/img/@service.ImageUrl" class="card-img-top" height="400" alt="Hollywood Sign on The Hill" />
+                        <div class="card-body">
+                            <h5 class="card-title">@service.Name</h5>
+                            <p class="card-text">
+                                @service.Description
+                            </p>
+                        </div>
                     </div>
                 </div>
-
-                <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6" >
-                    <img src="/assets/img/doctor-character.jpg" class="d-block w-100 pt-5 img-responsive" height="400" alt="Doctor pic">
-                </div>
-            </div>
-        </div>
-        
-        <div class="bg-white mb-0 rounded-0 jumbotron" >
-            <h1 class="font-weight-bolder "> World Class Quality Health Services</h1>
-            <p class="lead">
-                Aga Khan University Hospitals in Karachi, Pakistan and Nairobi,
-                Kenya are private, not-for-profit institutions providing high
-                quality health care. The Main Hospitals serve as the principal and Our Quality
-                and Patient Safety team at the
-                Aga Khan University Hospital have excessive training and experience in managing
-                sites for clinical training for the University's Medical Colleges
-                and Schools of Nursing and Midwifery in Pakistan and East Africa.
-            </p>
-        </div>
-        
-        <div class="bg-light pl-0 my-3 py-0 rounded-0 jumbotron">
-            <h1 class="font-weight-bolder text-center">About Our Services</h1>
-            <p>
-                The Aga Khan University Hospital strives to maintain the highest standards of safe and quality
-                health care for all patients, in all our facilities. Our Quality and Patient Safety team at the
-                Aga Khan University Hospital have excessive training and experience in managing and ensuring the
-                highest Quality Standards within our facilities and systems to ensure patient safety. We ensure that
-                proper checks and balances are followed in all aspects of the delivery of our healthcare services,
-                including Infection Control.
-            </p>
+            }
         </div>
     </div>
 </div>

@@ -1,0 +1,52 @@
+﻿@using WebApplication2.Models;
+@model Patient
+
+<div class="container">
+    <h1 class="text-danger mt-3 text-center">Patient</h1>
+
+    <div class="mt-4">
+        <form asp-controller="Admin" asp-action="AddOrUpdatePatient" method="post" enctype="multipart/form-data">
+            <input type="hidden" asp-for="Id" />
+            <div class="form-outline mb-3">
+                <input type="text" class="form-control" asp-for="Name" />
+                <label class="form-label" asp-for="Name">Name</label>
+            </div>
+            <span asp-validation-for="Name" class="text-danger"></span>
+
+            <div class="form-outline mb-3">
+                <input type="number" class="form-control" asp-for="Age" />
+                <label class="form-label" asp-for="Age">Age</label>
+            </div>
+            <span asp-validation-for="Age" class="text-danger"></span>
+
+            <label class="form-label" asp-for="ImageUrl">Upload Your Image</label>
+            <div class="form-outline mb-3">
+                <input type="file" class="form-control" asp-for="ImageUrl" accept="image/*" />
+            </div>
+
+            <span asp-validation-for="ImageUrl" class="text-danger"></span>
+
+            <div class="form-outline mb-3">
+                <textarea class="form-control" rows="3" asp-for="Address"></textarea>
+                <label class="form-label" asp-for="Address">Adress Details</label>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Blood Group</label>
+                <select class="form-select" asp-for="BloodGroupId" asp-items="@ViewBag.BloodGroups">
+                </select>
+            </div>
+            <span asp-validation-for="BloodGroupId" class="text-danger"></span>
+            <div class="mb-3">
+                <label class="form-label">City</label>
+                <select class="form-select" asp-for="CityId" asp-items="@ViewBag.Cities">
+                </select>
+            </div>
+            <span asp-validation-for="CityId" class="text-danger"></span>
+
+            <button type="submit" class="btn btn-block btn-danger">Submit</button>
+        </form>
+
+    </div>
+
+</div>
+

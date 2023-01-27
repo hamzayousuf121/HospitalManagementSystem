@@ -1,50 +1,56 @@
-﻿<div class="container">
+﻿@using WebApplication2.Models;
+@model Patient
+@{
+    ViewData["Title"] = "Profile";
+}
+
+<div class="container">
     <div class="row">
         <h1 class="text-danger mt-3 text-center">Profile</h1>
-       
+
         <div class="offset-lg-2 col-lg-8">
-            <form asp-controller="Patient" asp-action="profile" method="post">
+            <form asp-controller="Patient" asp-action="AddOrUpdatePatient" method="post">
+                <input type="hidden" asp-for="Id" />
                 <div class="form-outline mb-3">
-                    <input type="text" class="form-control" />
-                    <label class="form-label">Name</label>
+                    <input type="text" class="form-control" asp-for="Name" />
+                    <label class="form-label" asp-for="Name">Name</label>
                 </div>
+                <span asp-validation-for="Name" class="text-danger"></span>
+
                 <div class="form-outline mb-3">
-                    <input type="number" class="form-control" />
-                    <label class="form-label">Age</label>
+                    <input type="number" class="form-control" asp-for="Age" />
+                    <label class="form-label" asp-for="Age">Age</label>
                 </div>
-                <label class="form-label">Upload Your Image</label>
+                <span asp-validation-for="Age" class="text-danger"></span>
+
+                <label class="form-label" asp-for="ImageUrl">Upload Your Image</label>
                 <div class="form-outline mb-3">
-                    <input type="file" class="form-control" />
+                    <input type="file" class="form-control" asp-for="ImageUrl" accept="image/*" />
                 </div>
-                <div class="form-outline mb-3 mb-4">
-                    <textarea class="form-control" rows="3"></textarea>
-                    <label class="form-label">Adress Details</label>
+
+                <span asp-validation-for="ImageUrl" class="text-danger"></span>
+
+                <div class="form-outline mb-3">
+                    <textarea class="form-control" rows="3" asp-for="Address"></textarea>
+                    <label class="form-label" asp-for="Address">Adress Details</label>
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Blood Group</label>
-                    <select class="form-select" aria-label="Default select example">
-                        <option>Open this select menu</option>
-                        <option value="1">0+</option>
-                        <option value="1">0-</option>
-                        <option value="2">A+</option>
-                        <option value="2">A-</option>
-                        <option value="3">B+</option>
-                        <option value="3">B-</option>
+                    <select class="form-select" asp-for="BloodGroupId" asp-items="@ViewBag.BloodGroups">
                     </select>
                 </div>
+                <span asp-validation-for="BloodGroupId" class="text-danger"></span>
                 <div class="mb-3">
                     <label class="form-label">City</label>
-                    <select class="form-select" aria-label="Default select example">
-                        <option>Open this select menu</option>
-                        <option value="1">Karachi</option>
-                        <option value="1">Lahore</option>
-                        <option value="2">Islamabad</option>
+                    <select class="form-select" asp-for="CityId" asp-items="@ViewBag.Cities">
                     </select>
                 </div>
+                <span asp-validation-for="CityId" class="text-danger"></span>
+
                 <button type="submit" class="btn btn-block btn-danger">Submit</button>
             </form>
         </div>
-       
+
     </div>
 </div>
 

@@ -36,9 +36,6 @@ namespace WebApplication2.Migrations
                     b.Property<int>("BloodGroupId")
                         .HasColumnType("int");
 
-                    b.Property<int>("BranchId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
@@ -78,8 +75,6 @@ namespace WebApplication2.Migrations
                     b.HasIndex("AppointmentStatusId");
 
                     b.HasIndex("BloodGroupId");
-
-                    b.HasIndex("BranchId");
 
                     b.HasIndex("DoctorCategoryId");
 
@@ -233,7 +228,7 @@ namespace WebApplication2.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Age")
+                    b.Property<int?>("Age")
                         .HasColumnType("int");
 
                     b.Property<int>("BranchId")
@@ -260,7 +255,6 @@ namespace WebApplication2.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("ImageUrl")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("IsDeleted")
@@ -358,7 +352,8 @@ namespace WebApplication2.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Age")
+                    b.Property<int?>("Age")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<int>("BloodGroupId")
@@ -371,7 +366,6 @@ namespace WebApplication2.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("ImageUrl")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("IsDeleted")
@@ -423,11 +417,13 @@ namespace WebApplication2.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime>("ClinicEndTime")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("ClinicEndTime")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("ClinicStartTime")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("ClinicStartTime")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("CreatedOn")
                         .HasColumnType("datetime2");
@@ -473,7 +469,7 @@ namespace WebApplication2.Migrations
                     b.Property<int>("IsDeleted")
                         .HasColumnType("int");
 
-                    b.Property<string>("Title")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -559,12 +555,6 @@ namespace WebApplication2.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("WebApplication2.Models.Branch", "Branch")
-                        .WithMany()
-                        .HasForeignKey("BranchId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("WebApplication2.Models.DoctorCategory", "DoctorCategory")
                         .WithMany()
                         .HasForeignKey("DoctorCategoryId")
@@ -580,8 +570,6 @@ namespace WebApplication2.Migrations
                     b.Navigation("AppointmentStatus");
 
                     b.Navigation("BloodGroup");
-
-                    b.Navigation("Branch");
 
                     b.Navigation("Doctor");
 

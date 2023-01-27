@@ -1,4 +1,13 @@
-﻿<!DOCTYPE html>
+﻿@using WebApplication2.Models;
+@using Microsoft.EntityFrameworkCore;
+@inject HospitalContext _context;
+
+@{
+    string accessToken = Context.Request.Cookies["user-access-token"];
+    User user = _context.Users.Where(x => x.AccessToken == accessToken).Include(x => x.Role).FirstOrDefault();
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
@@ -72,7 +81,7 @@
                     <div class="d-flex align-items-center">
 
                         <div class="">
-                            Hamza Yousuf
+                            @user?.Name
                         </div>
                         <!-- Avatar -->
                         <div class="dropdown ms-2">
@@ -82,7 +91,7 @@
                                role="button"
                                data-mdb-toggle="dropdown"
                                aria-expanded="false">
-                                <img src="/assets/img/doctor-character.jpg"
+                                <img src="/assets/img/@(user?.Role?.Name == "Doctor" ? "doctor-character.jpg": "user.jpg")"
                                      class="rounded-circle"
                                      height="25"
                                      alt="Black and White Portrait of a Man"
@@ -91,13 +100,13 @@
                             <ul class="dropdown-menu dropdown-menu-end"
                                 aria-labelledby="navbarDropdownMenuAvatar">
                                 <li>
-                                    <a class="dropdown-item text-dark" asp-controller="Patient" asp-action="Profile">My profile</a>
+                                    <a class="dropdown-item text-dark" asp-controller="Patient" asp-action="Profile">My Profile</a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item text-dark" asp-controller="Doctor" asp-action="Profile">Doctor profile</a>
+                                    <a class="dropdown-item text-dark" asp-controller="Doctor" asp-action="Profile">Doctor Profile</a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item text-dark" asp-controller="Doctor" asp-action="Schedule">Doctor Schedule</a>
+                                    <a class="dropdown-item text-dark" asp-controller="Doctor" asp-action="Schedule">Schedule</a>
                                 </li>
                                 <li>
                                     <a class="dropdown-item text-dark" asp-controller="Account" asp-action="Logout">Logout</a>
@@ -123,8 +132,8 @@
                 <button class="navbar-toggler"
                         type="button"
                         data-mdb-toggle="collapse"
-                        data-mdb-target="#navbarSupportedContent"
-                        aria-controls="navbarSupportedContent"
+                        data-mdb-target="#navbarSupportedContent2"
+                        aria-controls="navbarSupportedContent2"
                         aria-expanded="false"
                         aria-label="Toggle navigation">
                     <i class="fas fa-bars"></i>
@@ -140,7 +149,7 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Roles">Role</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="ImageSliders">ImageSlider</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="ImageSliders">Image Slider</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Branches">Branch</a>
@@ -158,10 +167,25 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="WeekDays">WeekDays</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="AppointmentStatuses">AppointmentStatuses</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Appointments">Appointments</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="AppointmentStatuses">Appointment Status</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="DoctorStatuses">Doctor Status</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Doctors">Doctor </a>
+                        </li>
+                          <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Patients">Patient</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Users">User</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Services">Services</a>
                         </li>
                     </ul>
                 </div>

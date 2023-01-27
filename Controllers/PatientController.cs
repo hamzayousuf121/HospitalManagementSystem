@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Azure.Core;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using System.Numerics;
 using WebApplication2.Models;
 
 namespace WebApplication2.Controllers
@@ -7,21 +10,54 @@ namespace WebApplication2.Controllers
     public class PatientController : Controller
     {
         private readonly HospitalContext _context;
-        public PatientController(HospitalContext context) {
-            _context = context; 
+        private readonly IHostEnvironment _environment;
+        public PatientController(HospitalContext context, IHostEnvironment environment)
+        {
+            _context = context;
+            _environment = environment;
         }
         public IActionResult Index()
-        {
+        { 
             return View();
         }
-        public IActionResult Appointment()
+        public IActionResult Appointment(string doctorId, string categoryId)
         {
-            ViewBag.BloodGroups = new SelectList(_context.BloodGroups.ToList(),"Id", "Name");
+            ViewBag.Categories = new SelectList(_context.DoctorCategories.ToList(), "Id", "Name", categoryId);
+            ViewBag.Doctors = new SelectList(_context.Doctors.ToList(), "Id", "Name", doctorId);
+            ViewBag.BloodGroups = new SelectList(_context.BloodGroups.ToList(), "Id", "Name");
+
             return View();
         }
         public IActionResult Profile()
         {
+            string accessToken = Request.Cookies["user-access-token"];
+            User user = _context.Users.Include(x => x.Role).Where(x => x.AccessToken == accessToken).FirstOrDefault();
+            if(user is not null)
+            {
+                Patient patient = _context.Patients.Where(x => x.UserId == user.Id).FirstOrDefault();
+                return View(patient);
+            }
+
             return View();  
+        }
+
+        [HttpPost]
+        public IActionResult AddOrUpdatePatient(Patient patient)
+        {
+            string accessToken = Request.Cookies["user-access-token"];
+            User user = _context.Users.Where(x => x.AccessToken == accessToken).FirstOrDefault();
+            var file = Request.Form.Files["ImageUrl"];
+            if (file is not null)
+            {
+                patient.ImageUrl = $"{DateTime.UtcNow.Ticks}.jpg";
+                var path = $"{_environment.ContentRootPath}/wwwroot/assets/img/{patient.ImageUrl}";
+                file.CopyTo(new FileStream(path, FileMode.Create));
+            }
+            
+            patient.UserId = user.Id;
+            _context.Patients.Update(patient);
+            _context.SaveChanges();
+            return Redirect("/Home/Index");
         }
     }
 }

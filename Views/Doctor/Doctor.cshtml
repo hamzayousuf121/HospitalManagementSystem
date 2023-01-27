@@ -1,4 +1,10 @@
-﻿<div>
+﻿@using WebApplication2.Models;
+@model List<Doctor>;
+
+@{
+    ViewData["Title"] = "Doctor";
+}
+<div>
     <img src="/assets/img/doctor-banner.jpg" class="img-responisve img-fluid w-100" />
     <h1 class="text-danger mt-3 text-center mt-3">Find a Doctors </h1>
 
@@ -8,411 +14,138 @@
 
 <div class="container">
     <div class="row">
-        <section class="w-100 py-4">
+       @* <section class="w-100 py-4">
             <label for="">Specialty</label>
+            <button type="button" onclick="location.href='@Url.Action("MyAction", "MyController")'" />
             <select class="form-select" asp-items="@ViewBag.Categories">
             </select>
-        </section>
+        </section>*@
+        @foreach (var doctor in Model)
+        {
+            <div class="col-lg-3 col-md-6 col-12 my-4">
+                <!-- Card -->
+                <div class="card">
+                    <div class="d-flex justify-content-around bg-light border-bottom pt-3">
+                        <div>
+                            <h4 class="text-danger">@doctor.Name</h4>
+                            <p>@doctor.Designation</p>
+                        </div>
+                        <div class="me-2">
+                            <i class="fas fa-2xl fa-user-doctor text-danger"></i>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <button class="btn btn-default border text-dark"
+                            onclick="getdoctorProfile({name:'@doctor.Name', fees: '@doctor.Fees', designation: '@doctor.Designation', status: '@doctor.DoctorStatus.Name', education: '@doctor.Degree', description: '@doctor.About', category:'@doctor.DoctorCategory.Name'})"
+                            data-mdb-toggle="modal"
+                            data-mdb-target="#ProfileModal">
+                            Profile
+                        </button>
+                        <button class="btn btn-default border text-dark"
+                            onclick="getSchedule('@doctor.Id')"
+                            data-mdb-toggle="modal"
+                            data-mdb-target="#ScheduleModal">
+                            Schedule
+                        </button>
+                        <a asp-controller="Patient" asp-action="Appointment" asp-route-doctorId="@doctor.Id" asp-route-categoryId="@doctor.DoctorCategoryId" class="text-dark btn btn-default border">Request an Appointment</a>
 
+                    </div>
+                </div>
+            </div>
+        }
         <div class="col-lg-3 col-md-6 col-12 my-4">
-            <!-- Card -->
-            <div class="card">
-                <div class="d-flex justify-content-around bg-light border-bottom pt-3">
-                    <div>
-                        <h4 class="text-danger">Dr Hamza Yousuf</h4>
-                        <p>Consultant</p>
-                    </div>
-                    <div class="me-2">
-                        <i class="fas fa-2xl fa-user-doctor text-danger"></i>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <button class="btn btn-default border"
-                            data-mdb-toggle="modal"
-                            data-mdb-target="#ProfileModal">
-                        Profile
-                    </button>
-                    <button class="btn btn-default border"
-                            data-mdb-toggle="modal"
-                            data-mdb-target="#ScheduleModal">
-                        Schedule
-                    </button>
-                    <button class="btn btn-default border"> <a asp-controller="Patient" asp-action="Appointment" class="text-dark">Request an Appointment</a></button>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-lg-3 col-md-6 col-12 my-4">
-            <!-- Card -->
-            <div class="card">
-                <div class="d-flex justify-content-around bg-light border-bottom pt-3">
-                    <div>
-                        <h4 class="text-danger">Dr Hamza Yousuf</h4>
-                        <p>Consultant</p>
-                    </div>
-                    <div class="me-2">
-                        <i class="fas fa-2xl fa-user-doctor text-danger"></i>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <button class="btn btn-default border"
-                            data-mdb-toggle="modal"
-                            data-mdb-target="#ProfileModal">
-                        Profile
-                    </button>
-                    <button class="btn btn-default border"
-                            data-mdb-toggle="modal"
-                            data-mdb-target="#ScheduleModal">
-                        Schedule
-                    </button>
-                    <button class="btn btn-default border"> <a asp-controller="Patient" asp-action="Appointment" class="text-dark">Request an Appointment</a></button>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-lg-3 col-md-6 col-12 my-4">
-            <!-- Card -->
-            <div class="card">
-                <div class="d-flex justify-content-around bg-light border-bottom pt-3">
-                    <div>
-                        <h4 class="text-danger">Dr Hamza Yousuf</h4>
-                        <p>Consultant</p>
-                    </div>
-                    <div class="me-2">
-                        <i class="fas fa-2xl fa-user-doctor text-danger"></i>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <button class="btn btn-default border"
-                            data-mdb-toggle="modal"
-                            data-mdb-target="#ProfileModal">
-                        Profile
-                    </button>
-                    <button class="btn btn-default border"
-                            data-mdb-toggle="modal"
-                            data-mdb-target="#ScheduleModal">
-                        Schedule
-                    </button>
-                    <button class="btn btn-default border"> <a asp-controller="Patient" asp-action="Appointment" class="text-dark">Request an Appointment</a></button>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-lg-3 col-md-6 col-12 my-4">
-            <!-- Card -->
-            <div class="card">
-                <div class="d-flex justify-content-around bg-light border-bottom pt-3">
-                    <div>
-                        <h4 class="text-danger">Dr Hamza Yousuf</h4>
-                        <p>Consultant</p>
-                    </div>
-                    <div class="me-2">
-                        <i class="fas fa-2xl fa-user-doctor text-danger"></i>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <button class="btn btn-default border"
-                            data-mdb-toggle="modal"
-                            data-mdb-target="#ProfileModal">
-                        Profile
-                    </button>
-                    <button class="btn btn-default border"
-                            data-mdb-toggle="modal"
-                            data-mdb-target="#ScheduleModal">
-                        Schedule
-                    </button>
-                    <button class="btn btn-default border"> <a asp-controller="Patient" asp-action="Appointment" class="text-dark">Request an Appointment</a></button>
-                </div>
-            </div>
-        </div>
-
-         <div class="col-lg-3 col-md-6 col-12 my-4">
-            <!-- Card -->
-            <div class="card">
-                <div class="d-flex justify-content-around bg-light border-bottom pt-3">
-                    <div>
-                        <h4 class="text-danger">Dr Hamza Yousuf</h4>
-                        <p>Consultant</p>
-                    </div>
-                    <div class="me-2">
-                        <i class="fas fa-2xl fa-user-doctor text-danger"></i>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <button class="btn btn-default border"
-                            data-mdb-toggle="modal"
-                            data-mdb-target="#ProfileModal">
-                        Profile
-                    </button>
-                    <button class="btn btn-default border"
-                            data-mdb-toggle="modal"
-                            data-mdb-target="#ScheduleModal">
-                        Schedule
-                    </button>
-                    <button class="btn btn-default border"> <a asp-controller="Patient" asp-action="Appointment" class="text-dark">Request an Appointment</a></button>
-                </div>
-            </div>
-        </div>
-
-         <div class="col-lg-3 col-md-6 col-12 my-4">
-            <!-- Card -->
-            <div class="card">
-                <div class="d-flex justify-content-around bg-light border-bottom pt-3">
-                    <div>
-                        <h4 class="text-danger">Dr Hamza Yousuf</h4>
-                        <p>Consultant</p>
-                    </div>
-                    <div class="me-2">
-                        <i class="fas fa-2xl fa-user-doctor text-danger"></i>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <button class="btn btn-default border"
-                            data-mdb-toggle="modal"
-                            data-mdb-target="#ProfileModal">
-                        Profile
-                    </button>
-                    <button class="btn btn-default border"
-                            data-mdb-toggle="modal"
-                            data-mdb-target="#ScheduleModal">
-                        Schedule
-                    </button>
-                    <button class="btn btn-default border"> <a asp-controller="Patient" asp-action="Appointment" class="text-dark">Request an Appointment</a></button>
-                </div>
-            </div>
-        </div>
-
-         <div class="col-lg-3 col-md-6 col-12 my-4">
-            <!-- Card -->
-            <div class="card">
-                <div class="d-flex justify-content-around bg-light border-bottom pt-3">
-                    <div>
-                        <h4 class="text-danger">Dr Hamza Yousuf</h4>
-                        <p>Consultant</p>
-                    </div>
-                    <div class="me-2">
-                        <i class="fas fa-2xl fa-user-doctor text-danger"></i>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <button class="btn btn-default border"
-                            data-mdb-toggle="modal"
-                            data-mdb-target="#ProfileModal">
-                        Profile
-                    </button>
-                    <button class="btn btn-default border"
-                            data-mdb-toggle="modal"
-                            data-mdb-target="#ScheduleModal">
-                        Schedule
-                    </button>
-                    <button class="btn btn-default border"> <a asp-controller="Patient" asp-action="Appointment" class="text-dark">Request an Appointment</a></button>
-                </div>
-            </div>
-        </div>
-
-         <div class="col-lg-3 col-md-6 col-12 my-4">
-            <!-- Card -->
-            <div class="card">
-                <div class="d-flex justify-content-around bg-light border-bottom pt-3">
-                    <div>
-                        <h4 class="text-danger">Dr Hamza Yousuf</h4>
-                        <p>Consultant</p>
-                    </div>
-                    <div class="me-2">
-                        <i class="fas fa-2xl fa-user-doctor text-danger"></i>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <button class="btn btn-default border"
-                            data-mdb-toggle="modal"
-                            data-mdb-target="#ProfileModal">
-                        Profile
-                    </button>
-                    <button class="btn btn-default border"
-                            data-mdb-toggle="modal"
-                            data-mdb-target="#ScheduleModal">
-                        Schedule
-                    </button>
-                    <button class="btn btn-default border"> <a asp-controller="Patient" asp-action="Appointment" class="text-dark">Request an Appointment</a></button>
-                </div>
-            </div>
-        </div>
-
-         <div class="col-lg-3 col-md-6 col-12 my-4">
-            <!-- Card -->
-            <div class="card">
-                <div class="d-flex justify-content-around bg-light border-bottom pt-3">
-                    <div>
-                        <h4 class="text-danger">Dr Hamza Yousuf</h4>
-                        <p>Consultant</p>
-                    </div>
-                    <div class="me-2">
-                        <i class="fas fa-2xl fa-user-doctor text-danger"></i>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <button class="btn btn-default border"
-                            data-mdb-toggle="modal"
-                            data-mdb-target="#ProfileModal">
-                        Profile
-                    </button>
-                    <button class="btn btn-default border"
-                            data-mdb-toggle="modal"
-                            data-mdb-target="#ScheduleModal">
-                        Schedule
-                    </button>
-                    <button class="btn btn-default border"> <a asp-controller="Patient" asp-action="Appointment" class="text-dark">Request an Appointment</a></button>
-                </div>
-            </div>
-        </div>
-
-         <div class="col-lg-3 col-md-6 col-12 my-4">
-            <!-- Card -->
-            <div class="card">
-                <div class="d-flex justify-content-around bg-light border-bottom pt-3">
-                    <div>
-                        <h4 class="text-danger">Dr Hamza Yousuf</h4>
-                        <p>Consultant</p>
-                    </div>
-                    <div class="me-2">
-                        <i class="fas fa-2xl fa-user-doctor text-danger"></i>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <button class="btn btn-default border"
-                            data-mdb-toggle="modal"
-                            data-mdb-target="#ProfileModal">
-                        Profile
-                    </button>
-                    <button class="btn btn-default border"
-                            data-mdb-toggle="modal"
-                            data-mdb-target="#ScheduleModal">
-                        Schedule
-                    </button>
-                    <button class="btn btn-default border"> <a asp-controller="Patient" asp-action="Appointment" class="text-dark">Request an Appointment</a></button>
-                </div>
-            </div>
-        </div>
-
-         <div class="col-lg-3 col-md-6 col-12 my-4">
-            <!-- Card -->
-            <div class="card">
-                <div class="d-flex justify-content-around bg-light border-bottom pt-3">
-                    <div>
-                        <h4 class="text-danger">Dr Hamza Yousuf</h4>
-                        <p>Consultant</p>
-                    </div>
-                    <div class="me-2">
-                        <i class="fas fa-2xl fa-user-doctor text-danger"></i>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <button class="btn btn-default border"
-                            data-mdb-toggle="modal"
-                            data-mdb-target="#ProfileModal">
-                        Profile
-                    </button>
-                    <button class="btn btn-default border"
-                            data-mdb-toggle="modal"
-                            data-mdb-target="#ScheduleModal">
-                        Schedule
-                    </button>
-                    <button class="btn btn-default border"> <a asp-controller="Patient" asp-action="Appointment" class="text-dark">Request an Appointment</a></button>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-lg-3 col-md-6 col-12 my-4">
-            <!-- Card -->
-            <div class="card">
-                <div class="d-flex justify-content-around bg-light border-bottom pt-3">
-                    <div>
-                        <h4 class="text-danger">Dr Hamza Yousuf</h4>
-                        <p>Consultant</p>
-                    </div>
-                    <div class="me-2">
-                        <i class="fas fa-2xl fa-user-doctor text-danger"></i>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <button class="btn btn-default border"
-                            data-mdb-toggle="modal"
-                            data-mdb-target="#ProfileModal">
-                        Profile
-                    </button>
-                    <button class="btn btn-default border"
-                            data-mdb-toggle="modal"
-                            data-mdb-target="#ScheduleModal">
-                        Schedule
-                    </button>
-                    <button class="btn btn-default border"> <a asp-controller="Patient" asp-action="Appointment" class="text-dark">Request an Appointment</a></button>
-                </div>
-            </div>
-        </div>
-
-    </div>
-</div>
-<div class="modal modal-lg fade" id="ScheduleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header bg-danger">
-                <h5 class="modal-title text-white" id="exampleModalLabel">Doctor Name</h5>
-                <button type="button" class="btn-close bg-white" data-mdb-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <table class="table table-hover">
-                    <tbody>
-                        <tr>
-                            <th>Location</th>
-                            <th>Day</th>
-                            <th>From</th>
-                            <th>To</th>
-                        </tr>
-                        <tr>
-                            <td>Tele-Allergy Clinic CMS</td>
-                            <td>Wednesday</td>
-                            <td>10:10</td>
-                            <td>12:30</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
         </div>
     </div>
-</div>
-<div class="modal modal-md fade" id="ProfileModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header bg-danger">
-                <h5 class="modal-title text-white" id="exampleModalLabel">Doctor Deatils</h5>
-                <button type="button" class="btn-close bg-white" data-mdb-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="d-flex justify-content-between bg-light border-bottom pt-3">
-                    <div>
-                        <h4 class="text-danger">Dr Hamza Yousuf</h4>
-                        @*Designation ae g yaha*@
-                        <p>Consultant</p>
-                    </div>
-                    <div class="me-3">
-                        <i class="fas fa-2xl fa-user-doctor text-danger"></i>
-                    </div>
+    <div class="modal modal-lg fade" id="ScheduleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-danger">
+                    <h5 class="modal-title text-white" id="exampleModalLabel">Doctor Name</h5>
+                    <button type="button" class="btn-close bg-white" data-mdb-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <h4 class="mt-2">Dentist</h4>
-                <div class="border border-bottom-3">
-                </div>
-                <div class="mt-3">
-                    <p>Status: Available</p>
-                    <p>Fees:1000</p>
-
-                    <p>Education:Mbbs</p>
-
-                    <p>
-                        Description:
-                        I am a Doctor Specilist in Dentist I have over 10 year expereice
-                    </p>
+                <div class="modal-body">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Location</th>
+                                <th>Day</th>
+                                <th>From</th>
+                                <th>To</th>
+                            </tr>
+                        </thead>
+                        <tbody id="scheduleBody">
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
-</div>
+    <div class="modal modal-md fade" id="ProfileModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-danger">
+                    <h5 class="modal-title text-white" id="exampleModalLabel">Doctor Deatils</h5>
+                    <button type="button" class="btn-close bg-white" data-mdb-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="d-flex justify-content-between bg-light border-bottom pt-3">
+                        <div>
+                            <h4 class="text-danger" id="name"></h4>
+
+                            <p id="designation"></p>
+                        </div>
+                        <div class="me-3">
+                            <i class="fas fa-2xl fa-user-doctor text-danger"></i>
+                        </div>
+                    </div>
+                    <h4 class="mt-2" id="category"></h4>
+                    <div class="border border-bottom-3">
+                    </div>
+                    <div class="mt-3">
+                        <p>Status: <b id="status"></b></p>
+                        <p>Fees:<b id="fees"></b></p>
+                        <p>Education:<b id="degree"></b></p>
+                        <p>Description:<b id="about"></b></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    @section Scripts
+        {
+        <script>
+            function getdoctorProfile(doctor) {
+
+                $("#name").text(doctor.name)
+                $("#designation").text(doctor.designation)
+                $("#about").text(doctor.about)
+                $("#degree").text(doctor.education)
+                $("#status").text(doctor.status)
+                $("#fees").text(doctor.fees)
+                $("#category").text(doctor.category)
+                $("#about").text(doctor.description)
+                //var myModal = new mdb.Modal(document.getElementById('ProfileModal'))
+                //myModal.show()
+            }
+
+            function getSchedule(id) {
+               
+                $.get(`/Doctor/ScheduleById/${id}`,
+                    function (data, status) {
+                      let scheduleHtml = "";
+                        for(var i = 0; i < data.length; i++){
+                            scheduleHtml +=
+                                `<tr>
+                                    <td>${data[i].location}</td>
+                                    <td>${data[i].weekDay.name} </td>
+                                    <td>${data[i].clinicStartTime} </td>
+                                    <td>${data[i].clinicEndTime} </td>
+                                <tr/>`
+                        }
+                        $("#scheduleBody").html(scheduleHtml);
+                    });
+            }
+
+        </script>
+    }

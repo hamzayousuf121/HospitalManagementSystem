@@ -2,22 +2,22 @@
 @model Branch
 
 <div class="container">
-    <h1 class="text-danger mt-3 text-center">Add Branch</h1>
+    <h1 class="text-danger mt-3 text-center">Branch</h1>
 
     <div class="mt-4">
         <form asp-controller="Admin" asp-action="AddOrUpdateBranch" method="post">
             <input type="hidden" asp-for="Id" />
-            <div class="mb-3">
-                <label class="form-label" asp-for="Name">Branch Name</label>
+            <div class="form-outline mb-3">
                 <input type="text" class="form-control" asp-for="Name" />
+                <label class="form-label" asp-for="Name">Branch</label>
             </div>
             <span asp-validation-for="Name" class="text-danger"></span>
 
             <div class="mb-3">
                 <label class="form-label" asp-for="CityId">Select City</label>
                 <select class="form-control" asp-for="CityId" asp-items="@ViewBag.Cities"></select>
+                <span asp-validation-for="CityId" class="text-danger"></span>
             </div>
-            <span asp-validation-for="CityId" class="text-danger"></span>
             <button type="submit" class="btn btn-block btn-danger">Submit</button>
         </form>
     </div>

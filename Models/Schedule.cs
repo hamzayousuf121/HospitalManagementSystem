@@ -14,9 +14,9 @@ namespace WebApplication2.Models
         [Required]
         public int WeekDayId { get; set; }
         [Required]
-        public DateTime ClinicStartTime { get; set; }
+        public string ClinicStartTime { get; set; }
         [Required]
-        public DateTime ClinicEndTime { get; set; }
+        public string ClinicEndTime { get; set; }
         public DateTime? CreatedOn { get; set; }
         public int IsDeleted { get; set; }
     }

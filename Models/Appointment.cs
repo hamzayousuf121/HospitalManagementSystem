@@ -18,8 +18,6 @@ namespace WebApplication2.Models
         public string PatientEmail { get; set; }
         [Required]
         public double PatientPhoneNo { get; set; }
-        public virtual Branch Branch { get; set; }
-        public int BranchId { get; set; }
         public virtual DoctorCategory DoctorCategory { get; set; }
         [Required]
         public int DoctorCategoryId { get; set; }

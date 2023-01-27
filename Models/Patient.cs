@@ -9,8 +9,8 @@ namespace WebApplication2.Models
         public string Name { get; set; }
         [Required]
         public int Age { get; set; }
-        [Required]
-        public string ImageUrl { get; set; }
+        
+        public string? ImageUrl { get; set; }
         public virtual User User { get; set; }
         [Required]
         public int UserId { get; set; }

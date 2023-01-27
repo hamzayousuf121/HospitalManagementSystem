@@ -3,16 +3,17 @@
 
 <div class="container">
     <div class="row">
-        <h1 class="text-danger mt-3 text-center">User</h1>
+        <h1 class="text-danger mt-3 text-center">Users</h1>
 
         <div class="col-lg-12">
-            <a asp-controller="Admin" asp-action="AddOrUpdateUser" class="text-white btn btn-danger border btn-block">
-                Add User
+            <a asp-controller="Admin" asp-action="AddOrUpdateUser" class="text-white btn btn-danger border">
+                Add New Record
             </a>
 
             <table class="table table-hover mt-3 table-striped">
                 <tbody>
                     <tr>
+                        <th>Id</th>
                         <th>Name</th>
                         <th>Email</th>
                         <th>Phone Number</th>
@@ -26,6 +27,10 @@
                         {
                             <tr>
                                 <td>
+                                    @item.Id
+
+                                </td>
+                                <td>
                                     @item.Name
 
                                 </td>
@@ -38,19 +43,16 @@
                                 <td>
                                     @item.JoinOn
                                 </td>
-                                  <td>
+                                <td>
                                     @item.Role.Name
                                 </td>
                                 <td>
-                                    <button class="btn btn-warning">
-                                        <a asp-controller="Admin" asp-action="AddOrUpdateUser" class="text-white">
-                                            Edit
-                                        </a>
-                                    </button>
-                                    <button class="btn btn-danger" asp-controller="Admin" asp-action="DeleteUser"
-                                    asp-route-id="@item.Id">
+                                    <a asp-controller="Admin" asp-action="AddOrUpdateUser" class="text-white btn btn-warning" asp-route-id="@item.Id">
+                                        Edit
+                                    </a>
+                                    <a class="btn btn-danger" asp-controller="Admin" asp-action="DeleteUser" asp-route-id="@item.Id">
                                         Delete
-                                    </button>
+                                    </a>
                                 </td>
                             </tr>
 

@@ -29,12 +29,13 @@ namespace WebApplication2.Controllers
 
         public IActionResult Contact()
         {
-            List<Contact> Contacts = _context.Contacts.Include(x => x.Branch).ThenInclude(y => y.City).ToList();
-            return View(Contacts);
+            List<Contact> contacts = _context.Contacts.Include(x => x.Branch).ThenInclude(y => y.City).ToList();
+            return View(contacts);
         }
         public IActionResult Service()
         {
-            return View();
+            List<Service> services = _context.Services.ToList();
+            return View(services);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

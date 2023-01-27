@@ -3,17 +3,16 @@
 
 
 <div class="container">
-    <h1 class="text-danger mt-3 text-center">Add Appointment Status</h1>
+    <h1 class="text-danger mt-3 text-center">Appointment Status</h1>
 
     <div class="mt-4">
         <form asp-controller="Admin" asp-action="AddOrUpdateAppointmentStatus" method="post">
             <input type="hidden" asp-for="Id" />
-            <div class="mb-3">
-                <label class="form-label" asp-for="Name">Appointment Status Name</label>
+            <div class="form-outline mb-3">
                 <input type="text" class="form-control" asp-for="Name" />
+                <label class="form-label" asp-for="Name">Appointment Status</label>
             </div>
             <span asp-validation-for="Name" class="text-danger"></span>
-
             <button type="submit" class="btn btn-block btn-danger">Submit</button>
         </form>
     </div>
