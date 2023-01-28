@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Numerics;
+using WebApplication2.ActionFilters;
 using WebApplication2.Models;
 
 namespace WebApplication2.Controllers
@@ -28,6 +29,7 @@ namespace WebApplication2.Controllers
 
             return View();
         }
+        [PatientActionFilter]
         public IActionResult Profile()
         {
             string accessToken = Request.Cookies["user-access-token"];
@@ -41,6 +43,7 @@ namespace WebApplication2.Controllers
             return View();  
         }
 
+        [PatientActionFilter]
         [HttpPost]
         public IActionResult AddOrUpdatePatient(Patient patient)
         {
