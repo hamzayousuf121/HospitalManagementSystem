@@ -5,13 +5,21 @@
     ViewData["Title"] = "Service";
 }
 
-<div class="container">
-    <h1 class="text-danger Text-center mt-3">Service </h1>
+<div>
+    <img src="/assets/img/638105196738423292.jpg" class="img-responisve img-fluid w-100" />
+    <h1 class="text-danger mt-3 text-center mt-3">Service </h1>
+
+    <div class="border border-bottom-3">
+    </div>
+</div>
+
+<div class="container mt-5">
     <div class="border border-bottom-3">
     </div>
 
-    <div class="container bg-light">
-        <div class="row row-cols-1 row-cols-md-2 g-4">
+    <div class="container ">
+
+        <div class="row row-cols-1 row-cols-md-2 g-4 bg-light">
             @foreach (var service in Model)
             {
                 <div class="col">

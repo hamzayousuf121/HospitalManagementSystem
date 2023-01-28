@@ -21,6 +21,8 @@ namespace WebApplication2.Controllers
         { 
             return View();
         }
+
+        [HomeActionFilter]
         public IActionResult Appointment(string doctorId, string categoryId)
         {
             ViewBag.Categories = new SelectList(_context.DoctorCategories.ToList(), "Id", "Name", categoryId);

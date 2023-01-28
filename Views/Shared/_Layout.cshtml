@@ -33,10 +33,10 @@
             <div class="container-fluid">
 
                 <!-- Navbar brand -->
-                <a class="navbar-brand mt-2 mt-lg-0" href="#">
+                <a class="navbar-brand mt-2 mt-lg-0" href="/Home/Index">
                     <img src="~/assets/img/logo.png"
                          height="35" width="50"
-                         alt="MDB Logo"
+                         alt="Hospital Logo"
                          loading="lazy" />
                 </a>
                 <!-- Toggle button -->
@@ -63,17 +63,14 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Service">Service</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Doctor" asp-action="Appointment">Appointment Details</a>
-                        </li>
+                        @if (user?.Role?.Name == "Doctor")
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Doctor" asp-action="Appointment">Appointment Details</a>
+                            </li>
+                        }
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Doctor" asp-action="Doctor">Doctor</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Register">Register</a>
                         </li>
                     </ul>
                     <!-- Collapsible wrapper -->
@@ -94,20 +91,27 @@
                                 <img src="/assets/img/@(user?.Role?.Name == "Doctor" ? "doctor-character.jpg": "user.jpg")"
                                      class="rounded-circle"
                                      height="25"
-                                     alt="Black and White Portrait of a Man"
+                                     alt="User Image"
                                      loading="lazy" />
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end"
                                 aria-labelledby="navbarDropdownMenuAvatar">
-                                <li>
-                                    <a class="dropdown-item text-dark" asp-controller="Patient" asp-action="Profile">My Profile</a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item text-dark" asp-controller="Doctor" asp-action="Profile">Doctor Profile</a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item text-dark" asp-controller="Doctor" asp-action="Schedule">Schedule</a>
-                                </li>
+                                @if (user?.Role?.Name == "Patient")
+                                {
+                                    <li>
+                                        <a class="dropdown-item text-dark" asp-controller="Patient" asp-action="Profile">My Profile</a>
+                                    </li>
+                                }
+                                else if (user?.Role?.Name == "Doctor")
+                                {
+                                    <li>
+                                        <a class="dropdown-item text-dark" asp-controller="Doctor" asp-action="Profile">Doctor Profile</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item text-dark" asp-controller="Doctor" asp-action="Schedule">Schedule</a>
+                                    </li>
+                                }
+
                                 <li>
                                     <a class="dropdown-item text-dark" asp-controller="Account" asp-action="Logout">Logout</a>
                                 </li>
@@ -119,81 +123,83 @@
             </div>
             <!-- Container wrapper -->
         </nav>
+        @if (user?.Role?.Name == "Admin")
+        {
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <!-- Container wrapper -->
+                <div class="container-fluid">
 
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <!-- Container wrapper -->
-            <div class="container-fluid">
-
-                <!-- Navbar brand -->
-                <span class="navbar-brand mt-2 mt-lg-0">
-                    Admin
-                </span>
-                <!-- Toggle button -->
-                <button class="navbar-toggler"
+                    <!-- Navbar brand -->
+                    <span class="navbar-brand mt-2 mt-lg-0">
+                        Admin
+                    </span>
+                    <!-- Toggle button -->
+                    <button class="navbar-toggler"
                         type="button"
                         data-mdb-toggle="collapse"
                         data-mdb-target="#navbarSupportedContent2"
                         aria-controls="navbarSupportedContent2"
                         aria-expanded="false"
                         aria-label="Toggle navigation">
-                    <i class="fas fa-bars"></i>
-                </button>
-                <!-- Collapsible wrapper -->
-                <div class="collapse navbar-collapse" id="navbarSupportedContent2">
-                    <!-- Left links -->
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Cities">City</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Roles">Role</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="ImageSliders">Image Slider</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Branches">Branch</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Contacts">Contact</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="BloodGroups">Blood Group</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="DoctorCategories">Doctor Category</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="WeekDays">WeekDays</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Appointments">Appointments</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="AppointmentStatuses">Appointment Status</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="DoctorStatuses">Doctor Status</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Doctors">Doctor </a>
-                        </li>
-                          <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Patients">Patient</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Users">User</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Services">Services</a>
-                        </li>
-                    </ul>
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <!-- Collapsible wrapper -->
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent2">
+                        <!-- Left links -->
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Cities">City</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Roles">Role</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="ImageSliders">Image Slider</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Branches">Branch</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Contacts">Contact</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="BloodGroups">Blood Group</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="DoctorCategories">Doctor Category</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="WeekDays">WeekDays</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Appointments">Appointments</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="AppointmentStatuses">Appointment Status</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="DoctorStatuses">Doctor Status</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Doctors">Doctor </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Patients">Patient</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Users">User</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Services">Services</a>
+                            </li>
+                        </ul>
+                    </div>
+
                 </div>
+            </nav>
+            <!-- Navbar -->
+        }
 
-            </div>
-        </nav>
-
-        <!-- Navbar -->
     </header>
     <div class="">
         <main role="main" class="pb-3">
@@ -204,18 +210,19 @@
     <footer class="border-top footer text-muted">
         <div class="container text-center">
             All Rights Reserved &copy; Design & Developed by <a class="text-dark" href="https://sites.google.com/view/hamzaeportfolio">
-                Hamza Yousuf</a>
+                Hamza Yousuf
+            </a>
         </div>
     </footer>
     <script src="~/assets/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/assets/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/assets/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    
-@*    <script src="~/assets/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-*@
+
+
+    @*    <script src="~/assets/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    *@
     <script src="~/assets/js/mdb.min.js"></script>
-    
+
     <script src="~/assets/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>

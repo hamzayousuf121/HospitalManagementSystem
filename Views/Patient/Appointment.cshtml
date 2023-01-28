@@ -17,6 +17,12 @@
                 <span asp-validation-for="PatientName" class="text-danger"></span>
 
                 <div class="form-outline mb-3">
+                    <input type="text" class="form-control" asp-for="PatientEmail" />
+                    <label class="form-label" asp-for="PatientEmail">Email</label>
+                </div>
+                <span asp-validation-for="PatientEmail" class="text-danger"></span>
+
+                <div class="form-outline mb-3">
                     <input type="number" class="form-control" asp-for="PatientAge" />
                     <label class="form-label" asp-for="PatientAge">Age</label>
                 </div>
@@ -38,10 +44,10 @@
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label" asp-for="BloodGroup">Blood Group</label>
-                    <select class="form-select" asp-for="BloodGroup" asp-items="@ViewBag.BloodGroups">
+                    <label class="form-label" asp-for="BloodGroupId">Blood Group</label>
+                    <select class="form-select" asp-for="BloodGroupId" asp-items="@ViewBag.BloodGroups">
                     </select>
-                    <span asp-validation-for="BloodGroup" class="text-danger"></span>
+                    <span asp-validation-for="BloodGroupId" class="text-danger"></span>
                 </div>
 
                 <div class="mb-3">
@@ -60,7 +66,7 @@
 
                 <div class="form-outline mb-3">
                     <textarea class="form-control border" rows="3" asp-for="ReasonForAppointment"></textarea>
-                    <label class="form-label">Reason for Appointment</label>
+                    <label class="form-label" asp-for="ReasonForAppointment">Reason for Appointment</label>
                     <span asp-validation-for="ReasonForAppointment" class="text-danger"></span>
                 </div>
                 <button type="submit" class="btn btn-block btn-danger">Submit</button>

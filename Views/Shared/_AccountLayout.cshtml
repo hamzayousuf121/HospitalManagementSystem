@@ -1,0 +1,34 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <link rel="shortcut icon" href="~/assets/img/favicon.ico" type="image/x-icon">
+    <title>@ViewData["Title"] - Hospital Managment System</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <!-- Google Fonts Roboto -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" />
+    <!-- MDB -->
+    <link rel="stylesheet" href="~/assets/css/mdb.min.css" />
+    <link rel="stylesheet" href="~/assets/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/WebApplication2.styles.css" asp-append-version="true" />
+</head>
+<body>
+
+    <div class="">
+        <main role="main" class="pb-3">
+        @RenderBody()
+        </main>
+    </div>
+
+    <script src="~/assets/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/assets/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/assets/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/assets/js/mdb.min.js"></script>
+
+@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

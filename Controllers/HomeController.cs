@@ -1,11 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
+using WebApplication2.ActionFilters;
 using WebApplication2.Models;
 using WebApplication2.Models.ViewModels;
 
 namespace WebApplication2.Controllers
 {
+    [HomeActionFilter]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

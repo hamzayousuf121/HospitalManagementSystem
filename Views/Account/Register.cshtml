@@ -43,10 +43,14 @@
                     <select class="form-control" asp-for="RoleId" asp-items="ViewBag.Roles"></select>
                 </div>
                 <span asp-validation-for="RoleId" class="text-danger"></span>
+                <p class="pb-0">
+                    <a class="text-end" asp-controller="Account" asp-action="Login">Already have an Account</a>
 
+               </p>
                 <div class="my-2">
                     <button type="submit" class="btn btn-danger btn-block">Register</button>
                 </div>
+
                 <span class="text-danger">@ViewBag.ErrorMessage</span>
             </form>
         </div>

@@ -1,22 +1,23 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using WebApplication2.ActionFilters;
 using WebApplication2.Models;
 
 namespace WebApplication2.Controllers
 {
     public class AccountController : Controller
     {
+      
         private readonly HospitalContext _context;
         public AccountController(HospitalContext context)
         {
-
             _context = context;
-
         }
         public IActionResult Index()
         {
             return View();
         }
+        [AccountActionFilter]
         [HttpGet]
         public IActionResult Login()
         {
@@ -25,10 +26,6 @@ namespace WebApplication2.Controllers
         [HttpPost]
         public IActionResult Login(User User)
         {
-            //if (ModelState.IsValid)
-            //{ //checking model state
-            //    return RedirectToAction("Login");
-            //}
             User DbUser = _context.Users.Where(x => x.Email.ToLower().Equals(User.Email) && x.Password.Equals(User.Password)).FirstOrDefault();
             if (DbUser is null)
             {
@@ -38,9 +35,9 @@ namespace WebApplication2.Controllers
             CookieOptions cookieOptions = new CookieOptions();
             cookieOptions.Expires = DateTime.Now.AddDays(30);
             Response.Cookies.Append("user-access-token", DbUser.AccessToken, cookieOptions);
-           // ViewBag.JavaScriptFunction = string.Format("call();");
             return Redirect("/Home/Index");
         }
+        [AccountActionFilter]
         [HttpGet]
         public IActionResult Register()
         {

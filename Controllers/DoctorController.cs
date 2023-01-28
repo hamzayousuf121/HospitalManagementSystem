@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Numerics;
+using WebApplication2.ActionFilters;
 using WebApplication2.Models;
 
 namespace WebApplication2.Controllers
@@ -37,16 +38,24 @@ namespace WebApplication2.Controllers
             List<Schedule> Schedules = _context.Schedules.Where(x => x.DoctorId == id).Include(x => x.WeekDay).Include(x => x.Doctor).ToList();
             return Json(Schedules);
         }
+        [DoctorActionFilter]
         public IActionResult Schedule()
         {
             string accessToken = Request.Cookies["user-access-token"];
 
             User user = _context.Users.Where(x => x.AccessToken == accessToken).FirstOrDefault();
+
             Doctor doctor = _context.Doctors.Where(x => x.UserId == user.Id).FirstOrDefault();
 
-            List<Schedule> Schedules = _context.Schedules.Where(x => x.DoctorId == doctor.Id).Include(x => x.WeekDay).Include(x => x.Doctor).ToList();
-            return View(Schedules);
+            if (user is not null && doctor is not null)
+            {
+                List<Schedule> Schedules = _context.Schedules.Where(x => x.DoctorId == doctor.Id).Include(x => x.WeekDay).Include(x => x.Doctor).ToList();
+                return View(Schedules);
+            }
+
+            return View();
         }
+        [DoctorActionFilter]
 
         [HttpGet]
         public IActionResult AddOrUpdateSchedule(int id)
@@ -64,6 +73,7 @@ namespace WebApplication2.Controllers
             }
 
         }
+        [DoctorActionFilter]
         [HttpPost]
         public IActionResult AddOrUpdateSchedule(Schedule schedule)
         {
@@ -83,7 +93,7 @@ namespace WebApplication2.Controllers
             ViewBag.Error = "Please Create Doctor Profile First";
             return Redirect("/Doctor/Schedule");
         }
-
+        [DoctorActionFilter]
         public IActionResult DeleteSchedule(int id)
         {
             Schedule schedule = _context.Schedules.Where(x => x.Id == id).FirstOrDefault();
@@ -95,6 +105,8 @@ namespace WebApplication2.Controllers
             return Redirect("/Doctor/Schedule");
 
         }
+
+        [DoctorActionFilter]
         public IActionResult Profile()
         {
             ViewBag.DoctorStatuses = new SelectList(_context.DoctorStatuses.ToList(), "Id", "Name");
@@ -112,6 +124,8 @@ namespace WebApplication2.Controllers
 
             return View();
         }
+        
+        [DoctorActionFilter]
         [HttpPost]
         public IActionResult AddOrUpdateProfile(Doctor doctor)
         {
@@ -125,13 +139,23 @@ namespace WebApplication2.Controllers
                 var path = $"{_environment.ContentRootPath}/wwwroot/assets/img/{doctor.ImageUrl}";
                 file.CopyTo(new FileStream(path, FileMode.Create));
             }
+
             doctor.UserId = user.Id;
 
             _context.Doctors.Update(doctor);
             _context.SaveChanges();
-            return Redirect("/Admin/Doctors");
+            return Redirect("/Home/Index");
         }
-
+        [DoctorActionFilter]
+        public IActionResult ChangeAppointmentStatus(int Id, int appointmentStatusId)
+        {
+            Appointment appointment = _context.Appointments.Where(x => x.Id == Id).FirstOrDefault();
+            appointment.AppointmentStatusId = appointmentStatusId;
+            _context.SaveChanges();
+            return Redirect("/Doctor/Appointment");
+        }
+        
+        [DoctorActionFilter]
         [HttpGet]
         public IActionResult Appointment()
         {
@@ -151,7 +175,7 @@ namespace WebApplication2.Controllers
             appointments = _context.Appointments.Include(x => x.BloodGroup).Include(x => x.AppointmentStatus).Include(x => x.Doctor).Include(x => x.DoctorCategory).ToList();
             return View(appointments);
         }
-
+        [HomeActionFilter]
         [HttpPost]
         public IActionResult AddOrUpdateAppointment(Appointment appointment)
         {

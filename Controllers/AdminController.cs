@@ -4,11 +4,13 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Data;
 using System.Numerics;
+using WebApplication2.ActionFilters;
 using WebApplication2.Models;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace WebApplication2.Controllers
 {
+    [AdminActionFilter]
     public class AdminController : Controller
     {
         private readonly HospitalContext _context;
@@ -319,13 +321,6 @@ namespace WebApplication2.Controllers
             return Redirect("/Admin/Appointments");
         }
 
-        public IActionResult ChangeAppointmentStatus(int Id, int appointmentStatusId)
-        {
-          Appointment appointment =  _context.Appointments.Where(x => x.Id == Id).FirstOrDefault();
-            appointment.AppointmentStatusId = appointmentStatusId;
-            _context.SaveChanges();
-           return Redirect("/Doctor/Appointment");
-        }
         public IActionResult AppointmentStatuses()
         {
             List<AppointmentStatus> appointmentStatuses = _context.AppointmentStatuses.ToList();
