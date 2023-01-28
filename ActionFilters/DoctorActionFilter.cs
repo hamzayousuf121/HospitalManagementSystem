@@ -15,7 +15,7 @@ namespace WebApplication2.ActionFilters
         {
             string accessToken = context.HttpContext.Request.Cookies["user-access-token"];
             HospitalContext _context = context.HttpContext.RequestServices.GetRequiredService<HospitalContext>();
-            User user = _context.Users.Where(x => x.AccessToken == accessToken && x.Role.Name == "Patient").FirstOrDefault();
+            User user = _context.Users.Where(x => x.AccessToken == accessToken && x.Role.Name == "Doctor").FirstOrDefault();
 
             if (user == null)
             {
