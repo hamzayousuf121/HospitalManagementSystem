@@ -55,7 +55,7 @@ namespace WebApplication2.Controllers
             }
 
             User.AccessToken = Guid.NewGuid().ToString();
-            User.JoinOn = DateTime.Today;
+            User.JoinOn = DateTime.UtcNow.AddHours(5);
             _context.Users.Add(User);
             _context.SaveChanges();
 

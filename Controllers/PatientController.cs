@@ -34,6 +34,9 @@ namespace WebApplication2.Controllers
         [PatientActionFilter]
         public IActionResult Profile()
         {
+            ViewBag.Cities = new SelectList(_context.Cities.ToList(), "Id", "Name");
+            ViewBag.BloodGroups = new SelectList(_context.BloodGroups.ToList(), "Id", "Name");
+
             string accessToken = Request.Cookies["user-access-token"];
             User user = _context.Users.Include(x => x.Role).Where(x => x.AccessToken == accessToken).FirstOrDefault();
             if(user is not null)
@@ -58,7 +61,7 @@ namespace WebApplication2.Controllers
                 var path = $"{_environment.ContentRootPath}/wwwroot/assets/img/{patient.ImageUrl}";
                 file.CopyTo(new FileStream(path, FileMode.Create));
             }
-            
+             
             patient.UserId = user.Id;
             _context.Patients.Update(patient);
             _context.SaveChanges();

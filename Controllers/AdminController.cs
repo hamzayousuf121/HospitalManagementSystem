@@ -502,10 +502,10 @@ namespace WebApplication2.Controllers
         public IActionResult AddOrUpdateUser(User user)
         {
             user.AccessToken = Guid.NewGuid().ToString();
-            user.JoinOn = DateTime.Today;
+            user.JoinOn = DateTime.UtcNow.AddHours(5);
            
             CookieOptions cookieOptions = new CookieOptions();
-            cookieOptions.Expires = DateTime.Now.AddDays(30);
+            cookieOptions.Expires = DateTime.UtcNow.AddDays(30);
             Response.Cookies.Append("user-access-token", user.AccessToken, cookieOptions);
 
             _context.Users.Update(user);
