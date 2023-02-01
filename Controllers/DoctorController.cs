@@ -17,10 +17,6 @@ namespace WebApplication2.Controllers
             _context = context;
             _environment = environment;
         }
-        public IActionResult Index()
-        {
-            return View();
-        }
         public Doctor GetDoctorById(int Id)
         {
             Doctor doctor = _context.Doctors.Include(x => x.DoctorStatus).Include(x => x.DoctorCategory).Where(x => x.Id == Id).FirstOrDefault();
@@ -174,17 +170,6 @@ namespace WebApplication2.Controllers
 
             appointments = _context.Appointments.Include(x => x.BloodGroup).Include(x => x.AppointmentStatus).Include(x => x.Doctor).Include(x => x.DoctorCategory).ToList();
             return View(appointments);
-        }
-        [HomeActionFilter]
-        [HttpPost]
-        public IActionResult AddOrUpdateAppointment(Appointment appointment)
-        {
-            appointment.AppointmentStatusId = 4;
-            appointment.CreatedAt = DateTime.Now;
-            _context.Appointments.Update(appointment);
-            _context.SaveChanges();
-
-            return Redirect("/Home/Index");
         }
     }
 }

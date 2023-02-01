@@ -12,18 +12,26 @@
                 <label class="form-label" asp-for="Location">Clinic Location</label>
                 <input type="text" class="form-control" asp-for="Location" />
             </div>
+                <span class="text-danger" asp-validation-for="Location"></span>
+
             <div class="mb-3">
                 <label class="form-label" asp-for="WeekDayId">Day</label>
                 <select class="form-select" asp-items="ViewBag.Weekdays" asp-for="WeekDayId">
                 </select>
+                <span class="text-danger" asp-validation-for="WeekDayId"></span>
+
             </div>
             <div class=" mb-3">
                 <label class="form-label" asp-for="ClinicStartTime">Clinic Start Time</label>
                 <input type="time" class="form-control" asp-for="ClinicStartTime" />
+                <span class="text-danger" asp-validation-for="ClinicStartTime"></span>
+
             </div>
             <div class="mb-3">
                 <label class="form-label" asp-for="ClinicEndTime">Clinic End Time</label>
                 <input type="time" class="form-control" asp-for="ClinicEndTime" />
+                <span class="text-danger" asp-validation-for="ClinicEndTime"></span>
+
             </div>
 
             <button type="submit" class="btn btn-block btn-danger">Submit</button>

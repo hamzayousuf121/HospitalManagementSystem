@@ -8,7 +8,26 @@
         <h1 class="text-danger mt-3 text-center">Doctor Appointment</h1>
 
         <div class="offset-lg-2 col-lg-8">
-            <form asp-controller="Doctor" asp-action="AddOrUpdateAppointment" method="post">
+
+            @if (!string.IsNullOrEmpty(ViewBag.Success))
+            {
+                <div class="alert alert-dismissible fade show alert-success" role="alert" data-mdb-color="success">
+                    <i class="fas fa-check-circle me-3"></i>
+                    Thank you for choosing our Hospital to meet your healthcare needs.
+                    We have received your appointment request and will get back to you soon.
+                    <button type="button" class="btn-close" data-mdb-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
+
+            @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+            {
+                <div class="alert alert-danger" role="alert" data-mdb-color="danger">
+                    <i class="fas fa-check-circle me-3"></i>
+                    @ViewBag.ErrorMessage
+                </div>
+            }
+
+            <form asp-controller="Patient" asp-action="AddOrUpdateAppointment" method="post">
                 <input type="hidden" asp-for="Id" />
                 <div class="form-outline mb-3">
                     <input type="text" class="form-control" asp-for="PatientName" />
@@ -69,10 +88,11 @@
                     <label class="form-label" asp-for="ReasonForAppointment">Reason for Appointment</label>
                     <span asp-validation-for="ReasonForAppointment" class="text-danger"></span>
                 </div>
+
+               
                 <button type="submit" class="btn btn-block btn-danger">Submit</button>
             </form>
         </div>
 
     </div>
 </div>
-

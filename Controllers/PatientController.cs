@@ -18,20 +18,9 @@ namespace WebApplication2.Controllers
             _environment = environment;
         }
         public IActionResult Index()
-        { 
-            return View();
-        }
-
-        [HomeActionFilter]
-        public IActionResult Appointment(string doctorId, string categoryId)
         {
-            ViewBag.Categories = new SelectList(_context.DoctorCategories.ToList(), "Id", "Name", categoryId);
-            ViewBag.Doctors = new SelectList(_context.Doctors.ToList(), "Id", "Name", doctorId);
-            ViewBag.BloodGroups = new SelectList(_context.BloodGroups.ToList(), "Id", "Name");
-
             return View();
         }
-        [PatientActionFilter]
         public IActionResult Profile()
         {
             ViewBag.Cities = new SelectList(_context.Cities.ToList(), "Id", "Name");
@@ -39,13 +28,13 @@ namespace WebApplication2.Controllers
 
             string accessToken = Request.Cookies["user-access-token"];
             User user = _context.Users.Include(x => x.Role).Where(x => x.AccessToken == accessToken).FirstOrDefault();
-            if(user is not null)
+            if (user is not null)
             {
                 Patient patient = _context.Patients.Where(x => x.UserId == user.Id).FirstOrDefault();
                 return View(patient);
             }
 
-            return View();  
+            return View();
         }
 
         [PatientActionFilter]
@@ -61,11 +50,43 @@ namespace WebApplication2.Controllers
                 var path = $"{_environment.ContentRootPath}/wwwroot/assets/img/{patient.ImageUrl}";
                 file.CopyTo(new FileStream(path, FileMode.Create));
             }
-             
+
             patient.UserId = user.Id;
             _context.Patients.Update(patient);
             _context.SaveChanges();
             return Redirect("/Home/Index");
+        }
+        [HomeActionFilter]
+        public IActionResult Appointment(string doctorId, string categoryId)
+        {
+            ViewBag.Categories = new SelectList(_context.DoctorCategories.ToList(), "Id", "Name", categoryId);
+            ViewBag.Doctors = new SelectList(_context.Doctors.ToList(), "Id", "Name", doctorId);
+            ViewBag.BloodGroups = new SelectList(_context.BloodGroups.ToList(), "Id", "Name");
+
+            return View();
+        }
+        [HomeActionFilter]
+        [HttpPost]
+        public IActionResult AddOrUpdateAppointment(Appointment appointment)
+        {
+            if (!ModelState.IsValid)
+            {
+                try
+                {
+                    appointment.AppointmentStatusId = 4;
+                    appointment.CreatedAt = DateTime.UtcNow.AddHours(5);
+                    _context.Appointments.Update(appointment);
+                    _context.SaveChanges();
+                    ViewBag.Success = "Record Added Successfully";
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.ErrorMessage = ex.Message;
+                    return RedirectToAction("Appointment");
+                }
+            }
+           
+            return View("Appointment");
         }
     }
 }

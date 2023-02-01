@@ -24,9 +24,6 @@ namespace WebApplication2.Models
         public virtual Doctor Doctor { get; set; }
         [Required]
         public int DoctorId { get; set; }
-        public virtual Patient Patient { get; set; }
-        [Required]
-        public int PatientId { get; set; }
         [Required]
         public string? ReasonForAppointment { get; set; }
         public virtual AppointmentStatus AppointmentStatus { get; set; }
